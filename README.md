@@ -54,11 +54,30 @@ curl zsaber.com/vim | sh
 # or, run the install script directly
 sh zf_vim_install.sh
 
-# optionally, change these settings if you want
-export ZF_256=1     # force 256 colorscheme
-export ZF_YCM=1     # enable YouCompleteMe, require much time to install
+# optionally, change settings before running the shell script
+export ZF_xxx=1
 curl zsaber.com/vim | sh
 ```
+
+settings:
+
+* `ZF_256` : use 256 color colorscheme
+
+    may looks incorrect if used in non-256 color terminal
+
+* `ZF_YCM` : use `YouCompleteMe` instead of `clang_complete`
+
+    see `YouCompleteMe vs clang_complete` below for detailed info
+
+* `ZF_force` : remove all contents and perform clean install
+
+    items to remove before install
+
+    ```
+    ~/.vimrc
+    ~/_vimrc
+    ~/.vim
+    ```
 
 once installed, you may press `z?` to view a quick tutorial for this config
 

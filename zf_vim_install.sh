@@ -20,6 +20,14 @@ _old_dir=$(pwd)
 cd ~
 
 # ============================================================
+# clean
+if test "x$ZF_force" = "x1" ; then
+    rm "~/.vimrc"
+    rm "~/_vimrc"
+    rm "~/.vim"
+fi
+
+# ============================================================
 # vimrc
 _vimrc=
 if test -e ".vimrc"; then
