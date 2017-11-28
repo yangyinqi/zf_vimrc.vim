@@ -893,14 +893,6 @@ if g:zf_no_plugin!=1
             nnoremap <leader>vy :Yde<cr><c-r><c-w>
         endif
         " ==================================================
-        if !exists('g:plugin_ZFVimBeautifier')
-            let g:plugin_ZFVimBeautifier=1
-        endif
-        if g:plugin_ZFVimBeautifier==1
-            Plug 'ZSaberLv0/ZFVimBeautifier'
-            Plug 'ZSaberLv0/ZFVimBeautifierTemplate'
-        endif
-        " ==================================================
         if !exists('g:plugin_ZFVimCmdMenu')
             let g:plugin_ZFVimCmdMenu=1
         endif
