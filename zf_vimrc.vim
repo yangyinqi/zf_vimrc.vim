@@ -602,13 +602,6 @@ if g:zf_no_plugin!=1
             nmap -= <plug>FontsizeDefault
         endif
         " ==================================================
-        if !exists('g:plugin_vim_fugitive')
-            let g:plugin_vim_fugitive=1
-        endif
-        if g:plugin_vim_fugitive==1
-            Plug 'tpope/vim-fugitive'
-        endif
-        " ==================================================
         if !exists('g:plugin_linediff_vim')
             let g:plugin_linediff_vim=1
         endif
@@ -1051,6 +1044,46 @@ if g:zf_no_plugin!=1
             Plug 'tyru/caw.vim'
         endif
         " ==================================================
+        if !exists('g:plugin_DoxygenToolkit_vim')
+            let g:plugin_DoxygenToolkit_vim=1
+        endif
+        if g:plugin_DoxygenToolkit_vim==1
+            Plug 'vim-scripts/DoxygenToolkit.vim'
+            let g:load_doxygen_syntax=1
+        endif
+        " ==================================================
+        if !exists('g:plugin_syntastic')
+            let g:plugin_syntastic=1
+        endif
+        if g:plugin_syntastic==1
+            Plug 'vim-syntastic/syntastic'
+            if exists('*SyntasticStatuslineFlag')
+                set statusline-=%#warningmsg#
+                set statusline+=%#warningmsg#
+                set statusline-=%{SyntasticStatuslineFlag()}
+                set statusline+=%{SyntasticStatuslineFlag()}
+                set statusline-=%*
+                set statusline+=%*
+            endif
+            let g:syntastic_always_populate_loc_list = 1
+            let g:syntastic_auto_loc_list = 0
+            let g:syntastic_check_on_open = 1
+            let g:syntastic_check_on_wq = 0
+            let g:syntastic_mode_map = {'mode' : 'passive'}
+            if g:zf_windows==1
+                " this would hang if SHELL is cmd.exe
+                let g:syntastic_sh_checkers = []
+            endif
+        endif
+        " ==================================================
+        if !exists('g:plugin_vim_polyglot')
+            let g:plugin_vim_polyglot=1
+        endif
+        if g:plugin_vim_polyglot==1
+            Plug 'sheerun/vim-polyglot'
+            let g:polyglot_disabled = ['markdown']
+        endif
+        " ==================================================
         if !exists('g:plugin_YouCompleteMe')
             let g:plugin_YouCompleteMe=0
         endif
@@ -1153,21 +1186,13 @@ if g:zf_no_plugin!=1
             Plug 'octol/vim-cpp-enhanced-highlight'
         endif
         " ==================================================
-        if !exists('g:plugin_DoxygenToolkit_vim')
-            let g:plugin_DoxygenToolkit_vim=1
-        endif
-        if g:plugin_DoxygenToolkit_vim==1
-            Plug 'vim-scripts/DoxygenToolkit.vim'
-            let g:load_doxygen_syntax=1
-        endif
-        " ==================================================
         if !exists('g:plugin_vim_gfm_syntax')
             let g:plugin_vim_gfm_syntax=1
         endif
         if g:plugin_vim_gfm_syntax==1
-            Plug 'rhysd/vim-gfm-syntax'
+            Plug 'plasticboy/vim-markdown'
             function! ZF_Plugin_vim_gfm_syntax_init()
-                let g:markdown_fenced_languages = [
+                let g:vim_markdown_fenced_languages = [
                             \     'c',
                             \     'cpp',
                             \     'cs',
@@ -1194,9 +1219,9 @@ if g:zf_no_plugin!=1
                             \     'vim',
                             \ ]
                 let i = 0
-                while i < len(g:markdown_fenced_languages)
-                    if empty(globpath(&rtp, 'syntax/' . g:markdown_fenced_languages[i] . '.vim'))
-                        call remove(g:markdown_fenced_languages, i)
+                while i < len(g:vim_markdown_fenced_languages)
+                    if empty(globpath(&rtp, 'syntax/' . g:vim_markdown_fenced_languages[i] . '.vim'))
+                        call remove(g:vim_markdown_fenced_languages, i)
                     else
                         let i += 1
                     endif
@@ -1256,30 +1281,6 @@ if g:zf_no_plugin!=1
             Plug 'spf13/PIV'
             let g:PIVCreateDefaultMappings=0
             let g:DisableAutoPHPFolding=1
-        endif
-        " ==================================================
-        if !exists('g:plugin_syntastic')
-            let g:plugin_syntastic=1
-        endif
-        if g:plugin_syntastic==1
-            Plug 'vim-syntastic/syntastic'
-            if exists('*SyntasticStatuslineFlag')
-                set statusline-=%#warningmsg#
-                set statusline+=%#warningmsg#
-                set statusline-=%{SyntasticStatuslineFlag()}
-                set statusline+=%{SyntasticStatuslineFlag()}
-                set statusline-=%*
-                set statusline+=%*
-            endif
-            let g:syntastic_always_populate_loc_list = 1
-            let g:syntastic_auto_loc_list = 0
-            let g:syntastic_check_on_open = 1
-            let g:syntastic_check_on_wq = 0
-            let g:syntastic_mode_map = {'mode' : 'passive'}
-            if g:zf_windows==1
-                " this would hang if SHELL is cmd.exe
-                let g:syntastic_sh_checkers = []
-            endif
         endif
         " ==================================================
         if !exists('g:plugin_xmledit')
