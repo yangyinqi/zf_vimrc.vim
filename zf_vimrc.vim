@@ -687,6 +687,8 @@ if g:zf_no_plugin!=1
             let g:NERDTreeDirArrowExpandable='+'
             let g:NERDTreeDirArrowCollapsible='~'
             let g:NERDTreeRemoveDirCmd='rm -rf '
+            let g:NERDTreeCopyDirCmd='cp -rf '
+            let g:NERDTreeCopyFileCmd='cp -rf '
             nnoremap <silent> <leader>ve :NERDTreeToggle<cr>
             nnoremap <silent> <leader>ze :NERDTreeFind<cr>
             augroup plugin_nerdtree
@@ -739,9 +741,7 @@ if g:zf_no_plugin!=1
             let g:nerdtree_tabs_open_on_console_startup=0
             let g:nerdtree_tabs_no_startup_for_diff=1
 
-            Plug 'ivalkeen/nerdtree-execute'
-            Plug 'ZSaberLv0/nerdtree_menu_copypath'
-            Plug 'ZSaberLv0/nerdtree_menu_quit'
+            Plug 'ZSaberLv0/nerdtree_menu_util'
         endif
         " ==================================================
         if !exists('g:plugin_ShowTrailingWhitespace')
