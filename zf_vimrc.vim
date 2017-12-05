@@ -1121,12 +1121,8 @@ if g:zf_no_plugin!=1
             let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/ycm_conf_default/ycm_extra_conf.py'
 
             Plug 'tenfyzhong/CompleteParameter.vim'
-            function! ZF_Plugin_CompleteParameter()
-                call feedkeys("\<c-y>", 't')
-                return complete_parameter#pre_complete('')
-            endfunction
             autocmd VimEnter *
-                        \ inoremap <silent><expr> <cr> pumvisible() ? ZF_Plugin_CompleteParameter() : "\<c-g>u\<cr>"|
+                        \ inoremap <silent><expr> <cr> pumvisible() ? "\<c-y>" . complete_parameter#pre_complete('') : "\<c-g>u\<cr>"|
                         \ map <m-h> <Plug>(complete_parameter#goto_previous_parameter)|
                         \ map <m-l> <Plug>(complete_parameter#goto_next_parameter)
         endif
