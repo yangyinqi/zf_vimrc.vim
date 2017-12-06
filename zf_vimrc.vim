@@ -1107,25 +1107,33 @@ if g:zf_no_plugin!=1
             let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/ycm_conf_default/ycm_extra_conf.py'
 
             Plug 'tenfyzhong/CompleteParameter.vim'
-            function! ZF_Plugin_CompleteParameter_tab()
+            function! ZF_Plugin_CompleteParameter_tab(forward)
                 if pumvisible()
-                    call feedkeys("\<c-n>", 't')
-                    return ''
+                    return a:forward ? "\<c-n>" : "\<c-p>"
                 endif
-                let line = getline('.')
-                let col = col('.')
-                if col <= 1 || len(line) < col - 2 || line[col - 2] == ' ' || line[col - 2] == "\<tab>"
-                    return "\<tab>"
+                if cmp#jumpable(a:forward)
+                    if a:forward
+                        return "\<Plug>(complete_parameter#goto_next_parameter)"
+                    else
+                        return "\<Plug>(complete_parameter#goto_previous_parameter)"
+                    endif
                 endif
-                call feedkeys("\<c-x>\<c-u>", 't')
+                if a:forward
+                    let line = getline('.')
+                    let col = col('.')
+                    if col <= 1 || len(line) < col - 2 || line[col - 2] == ' ' || line[col - 2] == "\<tab>"
+                        return "\<tab>"
+                    endif
+                    return "\<c-x>\<c-u>"
+                endif
                 return ''
             endfunction
             function! ZF_Plugin_CompleteParameter_setting()
                 inoremap <silent><expr> <cr> pumvisible() ? "\<c-y>" . complete_parameter#pre_complete('') : "\<c-g>u\<cr>"|
                 map <tab> <Plug>(complete_parameter#goto_next_parameter)
                 map <s-tab> <Plug>(complete_parameter#goto_previous_parameter)
-                imap <silent><expr> <tab> cmp#jumpable(1) ? '<Plug>(complete_parameter#goto_next_parameter)' : '<c-r>=ZF_Plugin_CompleteParameter_tab()<cr>'
-                imap <silent><expr> <s-tab> cmp#jumpable(0) ? '<Plug>(complete_parameter#goto_previous_parameter)' : ''
+                imap <silent><expr> <tab> '' . ZF_Plugin_CompleteParameter_tab(1)
+                imap <silent><expr> <s-tab> '' . ZF_Plugin_CompleteParameter_tab(0)
             endfunction
             autocmd VimEnter * call ZF_Plugin_CompleteParameter_setting()
         endif
