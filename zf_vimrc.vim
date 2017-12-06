@@ -307,6 +307,7 @@ if g:zf_no_plugin!=1
             autocmd User ZFExcludeChanged call ZF_Plugin_LeaderF_updateIgnore()
             let g:Lf_MruMaxFiles = 0
             let g:Lf_StlSeparator = {'left' : '', 'right' : ''}
+            let g:Lf_UseVersionControlTool = 0
             let g:Lf_CommandMap = {
                         \     '<c-c>' : ['<c-o>','<esc>'],
                         \     '<c-v>' : ['<c-g>'],
