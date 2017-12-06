@@ -1729,7 +1729,7 @@ if 1 " common settings
                     \     syntax clear|
                     \ endif
     augroup END
-    " allow Alt mapping in terminal
+    " allow Alt mapping in terminal (imap still not work)
     if !has('nvim')
         autocmd VimEnter *
                     \ let c='a'|
