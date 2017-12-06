@@ -217,8 +217,7 @@ after this, the completion should work, for both plugin
 * require much time to install the plugin for first time
 * doesn't work under Windows, it's too hard to config it, and it would fallback to clang_complete in this config
 * semantic complete keymap should be `<tab>`, and should trigger automatically when you start typing
-* macro function's param doesn't support semantic complete
-* use `<alt> + h` and `<alt> + l` to move between params after function completion
+* use `<tab>` to move between params after function completion
 
 ### clang_complete
 
