@@ -1186,20 +1186,12 @@ if g:zf_no_plugin!=1
             endif
         endif
         " ==================================================
-        if !exists('g:plugin_vim_cpp_enhanced_highlight')
-            let g:plugin_vim_cpp_enhanced_highlight=1
+        if !exists('g:plugin_vim_markdown')
+            let g:plugin_vim_markdown=1
         endif
-        if g:plugin_vim_cpp_enhanced_highlight==1
-            Plug 'octol/vim-cpp-enhanced-highlight'
-        endif
-        " ==================================================
-        if !exists('g:plugin_vim_gfm_syntax')
-            let g:plugin_vim_gfm_syntax=1
-        endif
-        if g:plugin_vim_gfm_syntax==1
-            Plug 'plasticboy/vim-markdown'
-            function! ZF_Plugin_vim_gfm_syntax_init()
-                let g:vim_markdown_fenced_languages = [
+        if g:plugin_vim_markdown==1
+            function! ZF_Plugin_vim_markdown_init(v)
+                let ftList = [
                             \     'c',
                             \     'cpp',
                             \     'cs',
@@ -1226,15 +1218,22 @@ if g:zf_no_plugin!=1
                             \     'vim',
                             \ ]
                 let i = 0
-                while i < len(g:vim_markdown_fenced_languages)
-                    if empty(globpath(&rtp, 'syntax/' . g:vim_markdown_fenced_languages[i] . '.vim'))
-                        call remove(g:vim_markdown_fenced_languages, i)
+                while i < len(ftList)
+                    if empty(globpath(&rtp, 'syntax/' . ftList[i] . '.vim'))
+                        call remove(ftList, i)
                     else
                         let i += 1
                     endif
                 endwhile
+                execute 'let ' . a:v . ' = ftList'
             endfunction
-            call ZF_Plugin_vim_gfm_syntax_init()
+            if 1
+                Plug 'rhysd/vim-gfm-syntax'
+                call ZF_Plugin_vim_markdown_init('g:markdown_fenced_languages')
+            else
+                Plug 'plasticboy/vim-markdown'
+                call ZF_Plugin_vim_markdown_init('g:vim_markdown_fenced_languages')
+            endif
         endif
         " ==================================================
         if !exists('g:plugin_markdown_preview_vim')
@@ -1931,7 +1930,7 @@ if 1 " common settings
     highlight PmenuThumb cterm=NONE ctermbg=LightGreen ctermfg=Red
     highlight SpecialKey ctermbg=NONE ctermfg=DarkRed
     highlight SpecialKey guibg=NONE guifg=DarkRed
-    " other settings
+    " q
     if g:zf_fakevim!=1
         nnoremap q <esc>
         xnoremap q <esc>
