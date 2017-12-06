@@ -1096,7 +1096,18 @@ if g:zf_no_plugin!=1
             let g:ycm_key_invoke_completion = '<c-x><c-u>'
             let g:ycm_key_list_select_completion = ['<Down>']
             let g:ycm_key_list_previous_completion = ['<Up>']
-            function! ZF_Plugin_YouCompleteMe_tab()
+            let g:ycm_semantic_triggers = {
+                        \     'c,cpp,objcpp' : 're![a-zA-Z_]',
+                        \ }
+            autocmd VimEnter *
+                        \ nnoremap zj :YcmCompleter GoTo<cr>|
+                        \ nnoremap zk <c-o>
+
+            Plug 'ZSaberLv0/ycm_conf_default'
+            let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/ycm_conf_default/ycm_extra_conf.py'
+
+            Plug 'tenfyzhong/CompleteParameter.vim'
+            function! ZF_Plugin_CompleteParameter_tab()
                 if pumvisible()
                     call feedkeys("\<c-n>", 't')
                     return ''
@@ -1109,22 +1120,14 @@ if g:zf_no_plugin!=1
                 call feedkeys("\<c-x>\<c-u>", 't')
                 return ''
             endfunction
-            autocmd BufReadPre * inoremap <tab> <c-r>=ZF_Plugin_YouCompleteMe_tab()<cr>
-            let g:ycm_semantic_triggers = {
-                        \     'c,cpp,objcpp' : 're![a-zA-Z_]',
-                        \ }
-            autocmd VimEnter *
-                        \ nnoremap zj :YcmCompleter GoTo<cr>|
-                        \ nnoremap zk <c-o>
-
-            Plug 'ZSaberLv0/ycm_conf_default'
-            let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/ycm_conf_default/ycm_extra_conf.py'
-
-            Plug 'tenfyzhong/CompleteParameter.vim'
-            autocmd VimEnter *
-                        \ inoremap <silent><expr> <cr> pumvisible() ? "\<c-y>" . complete_parameter#pre_complete('') : "\<c-g>u\<cr>"|
-                        \ map <m-h> <Plug>(complete_parameter#goto_previous_parameter)|
-                        \ map <m-l> <Plug>(complete_parameter#goto_next_parameter)
+            function! ZF_Plugin_CompleteParameter_setting()
+                inoremap <silent><expr> <cr> pumvisible() ? "\<c-y>" . complete_parameter#pre_complete('') : "\<c-g>u\<cr>"|
+                map <tab> <Plug>(complete_parameter#goto_next_parameter)
+                map <s-tab> <Plug>(complete_parameter#goto_previous_parameter)
+                imap <silent><expr> <tab> cmp#jumpable(1) ? '<Plug>(complete_parameter#goto_next_parameter)' : '<c-r>=ZF_Plugin_CompleteParameter_tab()<cr>'
+                imap <silent><expr> <s-tab> cmp#jumpable(0) ? '<Plug>(complete_parameter#goto_previous_parameter)' : ''
+            endfunction
+            autocmd VimEnter * call ZF_Plugin_CompleteParameter_setting()
         endif
         " ==================================================
         if !exists('g:plugin_clang_complete')
