@@ -1191,33 +1191,22 @@ if g:zf_no_plugin!=1
             let g:plugin_vim_markdown=1
         endif
         if g:plugin_vim_markdown==1
+            let g:ZF_Plugin_vim_markdown_ftList = []
             function! ZF_Plugin_vim_markdown_init(v)
-                let ftList = [
-                            \     'c',
-                            \     'cpp',
-                            \     'cs',
-                            \     'css',
-                            \     'dosbatch',
-                            \     'dosini',
-                            \     'doxygen',
-                            \     'go',
-                            \     'html',
-                            \     'java',
-                            \     'javascript',
-                            \     'js=javascript',
-                            \     'json=javascript',
-                            \     'lua',
-                            \     'make',
-                            \     'objc',
-                            \     'objcpp',
-                            \     'perl',
-                            \     'php',
-                            \     'python',
-                            \     'ruby',
-                            \     'sh',
-                            \     'sql',
-                            \     'vim',
-                            \ ]
+                let searchSaved = @/
+                let cursorSaved = getcurpos()
+                let ftList = deepcopy(g:ZF_Plugin_vim_markdown_ftList)
+                let tmpList = []
+                silent! g/^[ \t]*```[ \t]*[a-z0-9_]\+[ \t]*$/execute 'call add(tmpList, getline("."))'
+                for item in tmpList
+                    let t = substitute(item, '^[ \t]*```[ \t]*\([a-z0-9_]\+\)[ \t]*$', '\1', 'g')
+                    if !empty(t)
+                        call add(ftList, t)
+                    endif
+                endfor
+                let @/ = searchSaved
+                call setpos('.', cursorSaved)
+                call uniq(sort(ftList))
                 let i = 0
                 while i < len(ftList)
                     if empty(globpath(&rtp, 'syntax/' . ftList[i] . '.vim'))
@@ -1226,15 +1215,21 @@ if g:zf_no_plugin!=1
                         let i += 1
                     endif
                 endwhile
+                let g:ZF_Plugin_vim_markdown_ftList = ftList
                 execute 'let ' . a:v . ' = ftList'
             endfunction
             if 1
                 Plug 'rhysd/vim-gfm-syntax'
-                call ZF_Plugin_vim_markdown_init('g:markdown_fenced_languages')
+                let ZF_Plugin_vim_markdown_cfg = 'g:markdown_fenced_languages'
             else
                 Plug 'plasticboy/vim-markdown'
-                call ZF_Plugin_vim_markdown_init('g:vim_markdown_fenced_languages')
+                let ZF_Plugin_vim_markdown_cfg = 'g:vim_markdown_fenced_languages'
             endif
+            augroup ZF_Plugin_vim_markdown_setup
+                autocmd!
+                autocmd FileType markdown call ZF_Plugin_vim_markdown_init(ZF_Plugin_vim_markdown_cfg)
+                autocmd BufWritePost * if &filetype == 'markdown' | call ZF_Plugin_vim_markdown_init(ZF_Plugin_vim_markdown_cfg) | set syntax= | set syntax=markdown | endif
+            augroup END
         endif
         " ==================================================
         if !exists('g:plugin_markdown_preview_vim')
@@ -1261,15 +1256,22 @@ if g:zf_no_plugin!=1
         endif
         if g:plugin_ZFVimMarkdownToc==1
             Plug 'ZSaberLv0/ZFVimMarkdownToc'
-            augroup ZF_setting_markdown_keymap
+            augroup ZF_Plugin_ZFVimMarkdownToc_setting
                 autocmd!
-                autocmd FileType markdown,ghmarkdown
+                autocmd FileType markdown
                             \ nnoremap <buffer> [[ :call ZF_MarkdownTitlePrev('n')<cr>|
                             \ xnoremap <buffer> [[ :call ZF_MarkdownTitlePrev('v')<cr>|
                             \ nnoremap <buffer> ]] :call ZF_MarkdownTitleNext('n')<cr>|
                             \ xnoremap <buffer> ]] :call ZF_MarkdownTitleNext('v')<cr>|
                             \ nnoremap <buffer> <leader>vt :call ZF_MarkdownToc()<cr>
             augroup END
+        endif
+        " ==================================================
+        if !exists('g:plugin_vim_fenced_code_blocks')
+            let g:plugin_vim_fenced_code_blocks=1
+        endif
+        if g:plugin_vim_fenced_code_blocks==1
+            Plug 'amiorin/vim-fenced-code-blocks'
         endif
         " ==================================================
         if !exists('g:plugin_vim_php_namespace')
