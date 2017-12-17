@@ -1674,8 +1674,8 @@ if 1 " custom key mapping
             nnoremap <leader>v/ :%s///gn<left><left><left><left>
         endif
     endif
-    " <c-z> to qall
-    nnoremap <c-z> :qa<cr>
+    " suspend is not useful
+    nnoremap <c-z> <nop>
 endif " custom key mapping
 
 
