@@ -569,7 +569,7 @@ if g:zf_no_plugin!=1
                 autocmd!
                 autocmd User ZFVimrcPost
                             \ if exists('g:loaded_incsearch_fuzzy')|
-                            \     map / <Plug>(incsearch-fuzzy-/)|
+                            \     map <leader>vf <Plug>(incsearch-fuzzy-/)|
                             \ endif
             augroup END
         endif
