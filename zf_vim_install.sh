@@ -67,9 +67,9 @@ if test "x$_exist" = "x0"; then
     echo "" >> "$_vimrc"
 
     echo "\" * if you want the powerful YouCompleteMe, uncomment this and :PlugUpdate" >> "$_vimrc"
-    echo "\"     let g:plugin_YouCompleteMe=1" >> "$_vimrc"
+    echo "\"     let g:ZF_Plugin_YouCompleteMe=1" >> "$_vimrc"
     if test "x$ZF_YCM" = "x1" ; then
-        echo "let g:plugin_YouCompleteMe=1" >> "$_vimrc"
+        echo "let g:ZF_Plugin_YouCompleteMe=1" >> "$_vimrc"
     fi
     echo "" >> "$_vimrc"
 
