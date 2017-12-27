@@ -565,16 +565,14 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_incsearch==1
             Plug 'haya14busa/incsearch.vim'
             Plug 'haya14busa/incsearch-fuzzy.vim'
-            if !exists('g:ZF_Plugin_incsearch_fuzzypattern')
-                let g:ZF_Plugin_incsearch_fuzzypattern='\[0-9a-zA-Z_]\{-}'
-            endif
-            function! ZF_Plugin_incsearch_config(pattern)
+            function! ZF_Plugin_incsearch_fixPattern(pattern)
                 let pattern = substitute(a:pattern, '\m\%(\%(^\|[^\\]\)\%(\\\\\)*\)\@1<=\\' . '[mMvV]', '', 'g')
                 let pattern = substitute(pattern, '\m\%(^\|[^\\]\)\%(\\\\\)*' . '\([mMvV]\)', '\1', 'g')
                 let chars = map(split(pattern, '\zs'), "escape(v:val, '\\')")
-                let p =  '\V\<\=' .
+                let nonword = strlen(matchstr(pattern, '[^0-9a-zA-Z_]')) > 0
+                let p = '\V\<\=' .
                             \   join(map(chars[0:-2], "
-                            \       printf('%s%s', v:val, g:ZF_Plugin_incsearch_fuzzypattern)
+                            \       printf('%s%s', v:val, nonword ? '\\.\\{-}' : '\\[0-9a-zA-Z_]\\{-}')
                             \   "), '') . chars[-1]
                 return p
             endfunction
@@ -582,7 +580,7 @@ if g:zf_no_plugin!=1
                 autocmd!
                 autocmd User ZFVimrcPost
                             \ if exists('g:loaded_incsearch_fuzzy')|
-                            \     map <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_config')]})|
+                            \     map <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})|
                             \ endif
             augroup END
         endif
