@@ -576,12 +576,21 @@ if g:zf_no_plugin!=1
                             \   "), '') . chars[-1]
                 return p
             endfunction
+            function! ZF_Plugin_incsearch_setting()
+                if !exists('g:loaded_incsearch_fuzzy')
+                    return
+                endif
+
+                map <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})
+                if has('clipboard')
+                    cnoremap <s-insert> <c-r>*
+                else
+                    cnoremap <s-insert> <c-r>"
+                endif
+            endfunction
             augroup ZF_Plugin_incsearch_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
-                            \ if exists('g:loaded_incsearch_fuzzy')|
-                            \     map <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})|
-                            \ endif
+                autocmd User ZFVimrcPost call ZF_Plugin_incsearch_setting()
             augroup END
         endif
         " ==================================================
