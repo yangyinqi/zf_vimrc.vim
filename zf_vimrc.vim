@@ -1772,6 +1772,7 @@ if 1 " common settings
     set noswapfile
     set nowrap
     set synmaxcol=200
+    set lazyredraw
     set guioptions-=m
     set guioptions-=T
     set guioptions-=r
@@ -1802,6 +1803,7 @@ if 1 " common settings
                     \     setlocal bufhidden=unload|
                     \     setlocal foldmethod=manual|
                     \     setlocal nofoldenable|
+                    \     setlocal nocursorline|
                     \     syntax clear|
                     \ endif
     augroup END
@@ -1956,7 +1958,9 @@ if 1 " common settings
     augroup END
     " cursorline
     set linespace=2
-    set cursorline
+    if 0 " cursorline is quite slow
+        set cursorline
+    endif
     highlight Cursor gui=NONE guibg=green guifg=black
     highlight Cursor cterm=NONE ctermbg=green ctermfg=black
     highlight CursorLine gui=underline guibg=NONE guifg=NONE
