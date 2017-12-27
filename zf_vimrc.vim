@@ -566,8 +566,7 @@ if g:zf_no_plugin!=1
             Plug 'haya14busa/incsearch.vim'
             Plug 'haya14busa/incsearch-fuzzy.vim'
             function! ZF_Plugin_incsearch_fixPattern(pattern)
-                let pattern = substitute(a:pattern, '\m\%(\%(^\|[^\\]\)\%(\\\\\)*\)\@1<=\\' . '[mMvV]', '', 'g')
-                let pattern = substitute(pattern, '\m\%(^\|[^\\]\)\%(\\\\\)*' . '\([mMvV]\)', '\1', 'g')
+                let pattern = a:pattern
                 let chars = map(split(pattern, '\zs'), "escape(v:val, '\\')")
                 let nonword = strlen(matchstr(pattern, '[^0-9a-zA-Z_]')) > 0
                 let p = '\V\<\=' .
