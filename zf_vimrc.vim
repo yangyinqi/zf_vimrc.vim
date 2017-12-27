@@ -48,6 +48,7 @@ if 1 " global settings
 
     let g:zf_exclude_common=''
     let g:zf_exclude_common.=',.svn,.git,.hg'
+    let g:zf_exclude_common.=',tags'
     let g:zf_exclude_common.=',.vim_tags'
     let g:zf_exclude_common.=',*.swp'
     let g:zf_exclude_common.=',.DS_Store'
@@ -1079,7 +1080,7 @@ if g:zf_no_plugin!=1
             nnoremap <leader>ctagg :call ZF_TagsFileGlobal()<cr>
             nnoremap <leader>ctaga :call ZF_TagsFileGlobalAdd()<cr>
             nnoremap <leader>ctagr :call ZF_TagsFileRemove()<cr>
-            nnoremap <leader>ctagv :edit $HOME/.vim_cache/.vim_tags<cr>
+            nnoremap <leader>ctagv :execute ':edit ' . ZF_TagsFileGlobalPath()<cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimUtil')
@@ -1369,6 +1370,7 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_php_namespace==1
             Plug 'arnaud-lb/vim-php-namespace'
+            let g:php_namespace_sort_after_insert = 1
             nnoremap <leader>cphpu :call PhpInsertUse()<cr>
             nnoremap <leader>cphpe :call PhpExpandClass()<cr>
         endif
