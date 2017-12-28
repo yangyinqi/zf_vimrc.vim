@@ -85,11 +85,8 @@ if 1 " global settings
     let g:zf_exclude_all.=g:zf_exclude_media
 
     function! ZF_ExcludeAdd(pattern, ...)
-        if a:0 > 1
-            let name = 'g:zf_exclude_' . a:1
-        else
-            let name = 'g:zf_exclude_common'
-        endif
+        let name = 'g:zf_exclude_' . get(a:000, 0, 'common')
+        let needNotify = get(a:000, 1, 1)
         silent! execute 'let ' . name . '.=",' . a:pattern . '"'
         if name != 'g:zf_exclude_all'
             let g:zf_exclude_all=g:zf_exclude_init
@@ -99,10 +96,13 @@ if 1 " global settings
             let g:zf_exclude_all.=g:zf_exclude_build_dir
             let g:zf_exclude_all.=g:zf_exclude_media
         endif
-        doautocmd User ZFExcludeChanged
+        if needNotify
+            doautocmd User ZFExcludeChanged
+        endif
         echo 'exclude pattern added: ' . a:pattern
     endfunction
-    command! -nargs=+ -complete=file ZFExcludeAdd :call ZF_ExcludeAdd(<q-args>)
+    " ZFExcludeAdd pattern [excludeGroupName] [needNotify]
+    command! -nargs=+ -complete=file ZFExcludeAdd :call ZF_ExcludeAdd(<f-args>)
 
     " git info
     if !exists('g:zf_git_user_email')
@@ -774,14 +774,14 @@ if g:zf_no_plugin!=1
                 autocmd FileType nerdtree
                             \ setlocal tabstop=2|
                             \ nmap <buffer> <leader>ze :NERDTreeToggle<cr>:NERDTreeFind<cr>|
-                            \ nmap <buffer> cd z?cdz?CD:pwd<cr>|
-                            \ nmap <buffer> X ggz?X|
-                            \ nmap <buffer> u z?u:let _l=line('.')<cr>ggz?cdz?CD:<c-r>=_l<cr><cr>:pwd<cr>
+                            \ nmap <buffer> cd <leader>NT?cd<leader>NT?CD:pwd<cr>|
+                            \ nmap <buffer> X gg<leader>NT?X|
+                            \ nmap <buffer> u <leader>NT?u:let _l=line('.')<cr>gg<leader>NT?cd<leader>NT?CD:<c-r>=_l<cr><cr>:pwd<cr>
             augroup END
             let g:NERDTreeMapActivateNode='o'
-            let g:NERDTreeMapChangeRoot='z?CD'
-            let g:NERDTreeMapChdir='z?cd'
-            let g:NERDTreeMapCloseChildren='z?X'
+            let g:NERDTreeMapChangeRoot='<leader>NT?CD'
+            let g:NERDTreeMapChdir='<leader>NT?cd'
+            let g:NERDTreeMapCloseChildren='<leader>NT?X'
             let g:NERDTreeMapCloseDir='x'
             let g:NERDTreeMapDeleteBookmark=''
             let g:NERDTreeMapMenu='m'
@@ -809,9 +809,9 @@ if g:zf_no_plugin!=1
             let g:NERDTreeMapToggleFilters=''
             let g:NERDTreeMapToggleHidden='ch'
             let g:NERDTreeMapToggleZoom=''
-            let g:NERDTreeMapUpdir='z?u'
+            let g:NERDTreeMapUpdir='<leader>NT?u'
             let g:NERDTreeMapUpdirKeepOpen=''
-            let g:NERDTreeMapCWD=''
+            let g:NERDTreeMapCWD='CD'
 
             Plug 'jistr/vim-nerdtree-tabs'
             let g:nerdtree_tabs_startup_cd=0
