@@ -777,6 +777,7 @@ if g:zf_no_plugin!=1
             let NERDTreeAutoDeleteBuffer=1
             let NERDTreeHijackNetrw=1
             let NERDTreeBookmarksFile=$HOME.'/.vim_cache/.NERDTreeBookmarks'
+            let NERDTreeCascadeSingleChildDir=0
             let g:NERDTreeDirArrowExpandable='+'
             let g:NERDTreeDirArrowCollapsible='~'
             let g:NERDTreeRemoveDirCmd='rm -rf '
