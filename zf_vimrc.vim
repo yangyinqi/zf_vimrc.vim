@@ -1915,7 +1915,9 @@ if 1 " common settings
         let pattern = split(a:pattern, ',')
         for item in pattern
             execute 'set wildignore+=' . item
-            execute 'set wildignore+=*/' . item . '/*'
+            if len(matchstr(item, '^/')) == 0
+                execute 'set wildignore+=**/' . item . '/**'
+            endif
         endfor
     endfunction
     call ZF_Setting_wildignore(g:zf_exclude_all)
