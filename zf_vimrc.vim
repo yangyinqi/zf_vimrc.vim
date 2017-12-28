@@ -1949,10 +1949,10 @@ if 1 " common settings
             endif
         endfor
     endfunction
-    call ZF_Setting_DisableItalic()
+    silent! call ZF_Setting_DisableItalic()
     augroup ZF_Setting_DisableItalic_augroup
         autocmd!
-        autocmd FileType,BufNewFile,BufReadPost * call ZF_Setting_DisableItalic()
+        autocmd FileType,BufNewFile,BufReadPost * silent! call ZF_Setting_DisableItalic()
     augroup END
     " status line
     set laststatus=2
