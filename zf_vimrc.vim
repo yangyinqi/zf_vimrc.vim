@@ -44,58 +44,69 @@ if 1 " global settings
     endif
 
     " global ignore
-    let g:zf_exclude_init='___dummy___'
+    let g:zf_exclude_common = []
+    let g:zf_exclude_common += [ 'tags' , '.vim_tags' ]
+    let g:zf_exclude_common += [ '*.swp' ]
+    let g:zf_exclude_common += [ '.DS_Store' ]
+    let g:zf_exclude_common += [ '*.d' , '*.depend*' ]
+    let g:zf_exclude_common += [ '*.a' , '*.o' , '*.so' , '*.dylib' ]
+    let g:zf_exclude_common += [ '*.jar' , '*.class' ]
+    let g:zf_exclude_common += [ '*.exe' , '*.dll' ]
+    let g:zf_exclude_common += [ '*.iml' , 'local.properties' ]
+    let g:zf_exclude_common += [ '*.user' ]
 
-    let g:zf_exclude_common=''
-    let g:zf_exclude_common.=',.svn,.git,.hg'
-    let g:zf_exclude_common.=',tags'
-    let g:zf_exclude_common.=',.vim_tags'
-    let g:zf_exclude_common.=',*.swp'
-    let g:zf_exclude_common.=',.DS_Store'
+    let g:zf_exclude_common_dir = []
+    let g:zf_exclude_common_dir += [ '.svn' , '.git' , '.hg' ]
+    let g:zf_exclude_common_dir += [ '.cache' , '_cache' ]
+    let g:zf_exclude_common_dir += [ '.tmp' , '_tmp' ]
+    let g:zf_exclude_common_dir += [ '.release' , '_release' ]
+    let g:zf_exclude_common_dir += [ '.build' , '_build' ]
+    let g:zf_exclude_common_dir += [ 'build-*' ]
+    let g:zf_exclude_common_dir += [ '_repo' ]
+    let g:zf_exclude_common_dir += [ '.idea' , '.gradle' ]
+    let g:zf_exclude_common_dir += [ 'build' , '.externalNativeBuild' ]
 
-    let g:zf_exclude_tmp_dir=''
-    let g:zf_exclude_tmp_dir.=',_cache,.cache'
-    let g:zf_exclude_tmp_dir.=',_tmp,.tmp'
+    let g:zf_exclude_media = []
+    let g:zf_exclude_media += [ '*.ico' , '*.jpg' , '*.jpeg' , '*.png' , '*.bmp' , '*.gif' , '*.webp' , '*.icns' ]
+    let g:zf_exclude_media += [ '*.mp2' , '*.mp3' , '*.wav' , '*.ogg' ]
 
-    let g:zf_exclude_build=''
-    let g:zf_exclude_build.=',*.d,*.depend*'
-    let g:zf_exclude_build.=',*.a,*.o,*.so,*.dylib'
-    let g:zf_exclude_build.=',*.jar,*.class'
-    let g:zf_exclude_build.=',*.exe,*.dll'
-    let g:zf_exclude_build.=',*.iml,local.properties'
-    let g:zf_exclude_build.=',*.user'
+    function! ZF_ExcludeExpandDir(pattern, ...)
+        let pattern = a:pattern
+        let token = get(a:000, 0, '*')
+        let ret = []
+        for item in pattern
+            call add(ret, item)
+            if empty(matchstr(item, '^/'))
+                call add(ret, token . '/' . item . '/' . token)
+            else
+                call add(ret, item . '/' . token)
+            endif
+        endfor
+        return ret
+    endfunction
+    function! s:ZF_ExcludeInit()
+        let g:zf_exclude_all_file = []
+        let g:zf_exclude_all_file += g:zf_exclude_common
+        let g:zf_exclude_all_file += g:zf_exclude_media
 
-    let g:zf_exclude_build_dir=''
-    let g:zf_exclude_build_dir.=',_release,.release'
-    let g:zf_exclude_build_dir.=',_build,.build'
-    let g:zf_exclude_build_dir.=',build-*'
-    let g:zf_exclude_build_dir.=',_repo'
-    let g:zf_exclude_build_dir.=',.idea,.gradle'
-    let g:zf_exclude_build_dir.=',build,.externalNativeBuild'
+        let g:zf_exclude_all_dir = []
+        let g:zf_exclude_all_dir += g:zf_exclude_common_dir
 
-    let g:zf_exclude_media=''
-    let g:zf_exclude_media.=',*.ico,*.jpg,*.jpeg,*.png,*.bmp,*.gif,*.webp,*.icns'
-    let g:zf_exclude_media.=',*.mp2,*.mp3,*.wav,*.ogg'
+        let g:zf_exclude_all = []
+        let g:zf_exclude_all += g:zf_exclude_all_file
+        let g:zf_exclude_all += g:zf_exclude_all_dir
 
-    let g:zf_exclude_all=g:zf_exclude_init
-    let g:zf_exclude_all.=g:zf_exclude_common
-    let g:zf_exclude_all.=g:zf_exclude_tmp_dir
-    let g:zf_exclude_all.=g:zf_exclude_build
-    let g:zf_exclude_all.=g:zf_exclude_build_dir
-    let g:zf_exclude_all.=g:zf_exclude_media
+        let g:zf_exclude_all_expand = []
+        let g:zf_exclude_all_expand += g:zf_exclude_all_file
+        let g:zf_exclude_all_expand += ZF_ExcludeExpandDir(g:zf_exclude_all_dir)
+    endfunction
+    call s:ZF_ExcludeInit()
 
     function! ZF_ExcludeAdd(pattern, ...)
-        let name = 'g:zf_exclude_' . get(a:000, 0, 'common')
+        let name = 'g:zf_exclude_' . get(a:000, 0, 'common_dir')
         let needNotify = get(a:000, 1, 1)
-        silent! execute 'let ' . name . '.=",' . a:pattern . '"'
-        if name != 'g:zf_exclude_all'
-            let g:zf_exclude_all=g:zf_exclude_init
-            let g:zf_exclude_all.=g:zf_exclude_common
-            let g:zf_exclude_all.=g:zf_exclude_tmp_dir
-            let g:zf_exclude_all.=g:zf_exclude_build
-            let g:zf_exclude_all.=g:zf_exclude_build_dir
-            let g:zf_exclude_all.=g:zf_exclude_media
-        endif
+        silent! execute 'let ' . name . ' += ["' . a:pattern . '"]'
+        call s:ZF_ExcludeInit()
         if needNotify
             doautocmd User ZFExcludeChanged
         endif
@@ -300,11 +311,10 @@ if g:zf_no_plugin!=1
             Plug 'will133/vim-dirdiff'
             let g:DirDiffEnableMappings=0
             function! ZF_Plugin_dirdiff_updateIgnore()
-                let g:DirDiffExcludes=g:zf_exclude_init
-                let g:DirDiffExcludes.=g:zf_exclude_common
-                let g:DirDiffExcludes.=g:zf_exclude_tmp_dir
-                let g:DirDiffExcludes.=g:zf_exclude_build
-                let g:DirDiffExcludes.=g:zf_exclude_build_dir
+                let tmp = []
+                let tmp += g:zf_exclude_common
+                let tmp += ZF_ExcludeExpandDir(g:zf_exclude_common_dir)
+                let g:DirDiffExcludes = join(tmp, ',')
             endfunction
             call ZF_Plugin_dirdiff_updateIgnore()
             augroup ZF_Plugin_dirdiff_augroup
@@ -380,7 +390,7 @@ if g:zf_no_plugin!=1
             let g:EasyGrepCommand=1
             let g:EasyGrepPerlStyle=1
             function! ZF_Plugin_easygrep_updateIgnore()
-                let g:EasyGrepFilesToExclude=g:zf_exclude_all
+                let g:EasyGrepFilesToExclude = join(g:zf_exclude_all_expand, ',')
             endfunction
             call ZF_Plugin_easygrep_updateIgnore()
             augroup ZF_Plugin_easygrep_augroup
@@ -618,7 +628,12 @@ if g:zf_no_plugin!=1
             let g:Lf_CursorBlink = 0
             let g:Lf_CacheDiretory = $HOME.'/.vim_cache/leaderf'
             function! ZF_Plugin_LeaderF_updateIgnore()
-                let g:Lf_WildIgnore = {'dir' : split(g:zf_exclude_all, ','), 'file' : split(g:zf_exclude_all, ',')}
+                let file = []
+                let file += g:zf_exclude_common
+                let file += g:zf_exclude_media
+                let dir = []
+                let dir += ZF_ExcludeExpandDir(g:zf_exclude_common_dir)
+                let g:Lf_WildIgnore = {'file' : file, 'dir' : dir}
             endfunction
             call ZF_Plugin_LeaderF_updateIgnore()
             augroup ZF_Plugin_LeaderF_augroup
@@ -1911,19 +1926,15 @@ if 1 " common settings
     set selectmode=key
     set mouse=
     " wildignore
-    function! ZF_Setting_wildignore(pattern)
-        let pattern = split(a:pattern, ',')
-        for item in pattern
+    function! ZF_Setting_wildignore()
+        for item in g:zf_exclude_all_expand
             execute 'set wildignore+=' . item
-            if len(matchstr(item, '^/')) == 0
-                execute 'set wildignore+=**/' . item . '/**'
-            endif
         endfor
     endfunction
-    call ZF_Setting_wildignore(g:zf_exclude_all)
+    call ZF_Setting_wildignore()
     augroup ZF_Setting_wildignore_augroup
         autocmd!
-        autocmd User ZFExcludeChanged call ZF_Setting_wildignore(g:zf_exclude_all)
+        autocmd User ZFExcludeChanged call ZF_Setting_wildignore()
     augroup END
     " disable italic fonts
     function! ZF_Setting_DisableItalic()
