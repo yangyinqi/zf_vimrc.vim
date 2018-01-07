@@ -213,8 +213,8 @@ if g:zf_no_plugin!=1
                 autocmd FileType agit,agit_stat,agit_diff
                             \ nmap <silent><buffer> q <Plug>(agit-exit)|
                             \ nmap <silent><buffer> p :call ZF_Plugin_agit_print_commitmsg()<cr>|
-                            \ nmap <silent><buffer> DI :call ZF_Plugin_agit_diff()<cr>|
-                            \ nmap <silent><buffer> DL :call ZF_Plugin_agit_diff_with_local()<cr>
+                            \ nmap <silent><buffer> DD :call ZF_Plugin_agit_diff()<cr>|
+                            \ nmap <silent><buffer> DI :call ZF_Plugin_agit_diff_with_local()<cr>
             augroup END
         endif
         " ==================================================
