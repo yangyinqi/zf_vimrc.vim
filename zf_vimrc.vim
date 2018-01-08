@@ -958,10 +958,10 @@ if g:zf_no_plugin!=1
             command! -nargs=0 IMView :call ZF_Plugin_VimIM_viewDB()
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_wildfire')
-            let g:ZF_Plugin_wildfire=1
+        if !exists('g:ZF_Plugin_expand_region')
+            let g:ZF_Plugin_expand_region=1
         endif
-        if g:ZF_Plugin_wildfire==1
+        if g:ZF_Plugin_expand_region==1
             Plug 'terryma/vim-expand-region'
             nmap t <Plug>(expand_region_expand)
             xmap t <Plug>(expand_region_expand)
