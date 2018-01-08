@@ -591,7 +591,9 @@ if g:zf_no_plugin!=1
                     return
                 endif
 
-                map <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})
+                nmap <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})
+                nmap <silent> <leader>vf <Plug>(incsearch-fuzzyword-/)
+                nnoremap <leader>zf /\v
                 if has('clipboard')
                     cnoremap <s-insert> <c-r>*
                 else
@@ -960,16 +962,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_wildfire=1
         endif
         if g:ZF_Plugin_wildfire==1
-            Plug 'gcmt/wildfire.vim'
-            let g:wildfire_objects=[]
-            let g:wildfire_objects+=["i'", 'i"', 'i`', 'i)', 'i]', 'i}', 'i>', 'it']
-            let g:wildfire_objects+=["a'", 'a"', 'a`', 'a)', 'a]', 'a}', 'a>', 'at']
-            " we want no map in select mode
-            let g:wildfire_fuel_map='<leader>v?wildfire?t'
-            let g:wildfire_water_map='<leader>v?wildfire?T'
-            nmap t <Plug>(wildfire-fuel)
-            xmap t <Plug>(wildfire-fuel)
-            xmap T <Plug>(wildfire-water)
+            Plug 'terryma/vim-expand-region'
+            nmap t <Plug>(expand_region_expand)
+            xmap t <Plug>(expand_region_expand)
+            xmap T <Plug>(expand_region_shrink)
+            let g:expand_region_text_objects = {
+                        \   "i'":0, 'i"':0, 'i`':0, 'i)':1, 'i]':1, 'i}':1, 'i>':1, 'it':1,
+                        \   "a'":0, 'a"':0, 'a`':0, 'a)':1, 'a]':1, 'a}':1, 'a>':1, 'at':1,
+                        \ }
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_youdao_translater')
