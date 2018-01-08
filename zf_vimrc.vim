@@ -1173,14 +1173,6 @@ if g:zf_no_plugin!=1
             endif
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_polyglot')
-            let g:ZF_Plugin_polyglot=1
-        endif
-        if g:ZF_Plugin_polyglot==1
-            Plug 'sheerun/vim-polyglot'
-            let g:polyglot_disabled = ['markdown']
-        endif
-        " ==================================================
         if !exists('g:ZF_Plugin_YouCompleteMe')
             let g:ZF_Plugin_YouCompleteMe=0
         endif
