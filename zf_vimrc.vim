@@ -560,6 +560,20 @@ if g:zf_no_plugin!=1
             augroup END
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_expand_region')
+            let g:ZF_Plugin_expand_region=1
+        endif
+        if g:ZF_Plugin_expand_region==1
+            Plug 'terryma/vim-expand-region'
+            nmap t <Plug>(expand_region_expand)
+            xmap t <Plug>(expand_region_expand)
+            xmap T <Plug>(expand_region_shrink)
+            let g:expand_region_text_objects = {
+                        \   "i'":0, 'i"':0, 'i`':0, 'i)':1, 'i]':1, 'i}':1, 'i>':1, 'it':1,
+                        \   "a'":0, 'a"':0, 'a`':0, 'a)':1, 'a]':1, 'a}':1, 'a>':1, 'at':1,
+                        \ }
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_fontsize')
             let g:ZF_Plugin_fontsize=1
         endif
@@ -958,20 +972,6 @@ if g:zf_no_plugin!=1
             command! -nargs=0 IMView :call ZF_Plugin_VimIM_viewDB()
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_expand_region')
-            let g:ZF_Plugin_expand_region=1
-        endif
-        if g:ZF_Plugin_expand_region==1
-            Plug 'terryma/vim-expand-region'
-            nmap t <Plug>(expand_region_expand)
-            xmap t <Plug>(expand_region_expand)
-            xmap T <Plug>(expand_region_shrink)
-            let g:expand_region_text_objects = {
-                        \   "i'":0, 'i"':0, 'i`':0, 'i)':1, 'i]':1, 'i}':1, 'i>':1, 'it':1,
-                        \   "a'":0, 'a"':0, 'a`':0, 'a)':1, 'a]':1, 'a}':1, 'a>':1, 'at':1,
-                        \ }
-        endif
-        " ==================================================
         if !exists('g:ZF_Plugin_youdao_translater')
             let g:ZF_Plugin_youdao_translater=1
         endif
@@ -1139,6 +1139,13 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_caw==1
             Plug 'tyru/caw.vim'
+            let g:caw_no_default_keymappings = 1
+            nmap CC <Plug>(caw:hatpos:toggle)
+            xmap CC <Plug>(caw:hatpos:toggle)
+            nmap C? <Plug>(caw:wrap:comment)
+            xmap C? <Plug>(caw:wrap:comment)
+            nmap C/ <Plug>(caw:wrap:uncomment)
+            xmap C/ <Plug>(caw:wrap:uncomment)
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_DoxygenToolkit')
