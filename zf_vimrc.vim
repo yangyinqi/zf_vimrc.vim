@@ -1148,14 +1148,6 @@ if g:zf_no_plugin!=1
             xmap C/ <Plug>(caw:wrap:uncomment)
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_DoxygenToolkit')
-            let g:ZF_Plugin_DoxygenToolkit=1
-        endif
-        if g:ZF_Plugin_DoxygenToolkit==1
-            Plug 'vim-scripts/DoxygenToolkit.vim'
-            let g:load_doxygen_syntax=1
-        endif
-        " ==================================================
         if !exists('g:ZF_Plugin_syntastic')
             let g:ZF_Plugin_syntastic=1
         endif
@@ -1178,6 +1170,14 @@ if g:zf_no_plugin!=1
                 " this would hang if SHELL is cmd.exe
                 let g:syntastic_sh_checkers = []
             endif
+        endif
+        " ==================================================
+        if !exists('g:ZF_Plugin_polyglot')
+            let g:ZF_Plugin_polyglot=1
+        endif
+        if g:ZF_Plugin_polyglot==1
+            Plug 'sheerun/vim-polyglot'
+            let g:polyglot_disabled = ['markdown']
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_YouCompleteMe')
