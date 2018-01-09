@@ -1809,6 +1809,7 @@ if 1 " common settings
     set whichwrap=b,s,<,>,[,]
     set display=lastline
     set sessionoptions-=options
+    let g:load_doxygen_syntax = 1
     function! ZF_Setting_common_action()
         set number
         set textwidth=0
