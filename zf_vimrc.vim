@@ -1830,6 +1830,7 @@ if 1 " common settings
                     \     setlocal foldmethod=manual|
                     \     setlocal nofoldenable|
                     \     setlocal nocursorline|
+                    \     setlocal norelativenumber|
                     \     syntax clear|
                     \ endif
     augroup END
@@ -1982,9 +1983,7 @@ if 1 " common settings
     augroup END
     " cursorline
     set linespace=2
-    if 0 " cursorline is quite slow
-        set cursorline
-    endif
+    set cursorline
     highlight Cursor gui=NONE guibg=green guifg=black
     highlight Cursor cterm=NONE ctermbg=green ctermfg=black
     highlight CursorLine gui=underline guibg=NONE guifg=NONE
