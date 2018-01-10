@@ -656,7 +656,7 @@ if g:zf_no_plugin!=1
                 autocmd!
                 autocmd User ZFExcludeChanged call ZF_Plugin_LeaderF_updateIgnore()
             augroup END
-            let g:Lf_MruMaxFiles = 0
+            let g:Lf_MruMaxFiles = 10
             let g:Lf_StlSeparator = {'left' : '', 'right' : ''}
             let g:Lf_UseVersionControlTool = 0
             let g:Lf_CommandMap = {
