@@ -4,6 +4,7 @@
 * [Quick Install](#quick-install)
 * [Manual Install](#manual-install)
 * [Uninstall](#uninstall)
+* [Customizing](#customizing)
 * [Additional Requirement](#additional-requirement)
 * [Platform Spec](#platform-spec)
     * [Cygwin](#cygwin)
@@ -135,6 +136,36 @@ $HOME/.vim
 $HOME/.vim_cache
 $HOME/zf_vimrc.vim
 ```
+
+
+# Customizing
+
+* all builtin plugins can be disabled by adding this before `source zf_vimrc.vim`
+
+    ```
+    let g:ZF_Plugin_agit=0
+    ```
+
+* to add your own plugin, add this before `source zf_vimrc.vim`
+
+    ```
+    autocmd User ZFVimrcPlug
+        \ Plug 'username/your_plugin_name'|
+        \ let your_plugin_config=xxx
+    ```
+
+    to make the config more readable, you may want to save it to a `*.vim` then `source` it
+
+    ```
+    " in .vimrc
+    autocmd User ZFVimrcPlug source "~/your_config.vim"
+
+    " in your_config.vim
+    Plug 'username/your_plugin1_name'
+    let your_plugin1_config=xxx
+    Plug 'username/your_plugin2_name'
+    let your_plugin2_config=yyy
+    ```
 
 
 # Additional Requirement
