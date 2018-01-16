@@ -80,7 +80,7 @@ if test "x$_exist" = "x0"; then
     echo "autocmd User ZFVimrcPlug call ZF_UserConfig()" >> "$_vimrc"
     echo "" >> "$_vimrc"
 
-    echo "source \~/zf_vimrc.vim" >> "$_vimrc"
+    echo "source \$HOME/zf_vimrc.vim" >> "$_vimrc"
     echo "" >> "$_vimrc"
     echo "" >> "$_vimrc"
 fi
