@@ -2184,6 +2184,6 @@ endif " local env setting
 " final setup
 augroup ZF_VimrcPost_augroup
     autocmd!
-    autocmd VimEnter * doautocmd User ZFVimrcPost
+    doautocmd User ZFVimrcPost
 augroup END
 
