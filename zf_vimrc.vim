@@ -1409,6 +1409,11 @@ if g:zf_no_plugin!=1
 
 
     " ==================================================
+    augroup ZF_VimrcPlug_augroup
+        autocmd!
+        autocmd User ZFVimrcPlug let _dummy=0
+        autocmd VimEnter * doautocmd User ZFVimrcPlug
+    augroup END
     call plug#end()
 endif " if g:zf_no_plugin!=1
 
