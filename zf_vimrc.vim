@@ -272,7 +272,7 @@ if g:zf_no_plugin!=1
             let g:buftabline_indicators=1
             augroup ZF_Plugin_buftabline_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
+                autocmd User ZFVimrcPostNormal
                             \ highlight link BufTabLineCurrent ZFColor_TabActive|
                             \ highlight link BufTabLineActive ZFColor_TabInactive|
                             \ highlight link BufTabLineHidden ZFColor_TabInactive|
@@ -513,7 +513,7 @@ if g:zf_no_plugin!=1
             omap S <plug>(easymotion-sol-bd-jk)
             augroup ZF_Plugin_easymotion_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
+                autocmd User ZFVimrcPostNormal
                             \ highlight EasyMotionTarget guibg=NONE guifg=White|
                             \ highlight EasyMotionTarget ctermbg=NONE ctermfg=White|
                             \ highlight link EasyMotionTarget2First EasyMotionTarget|
@@ -549,7 +549,7 @@ if g:zf_no_plugin!=1
             command! -nargs=* -range=% -bang Sort :call ZF_Plugin_eregex_sort('<bang>', <line1>, <line2>, <q-args>)
             augroup ZF_Plugin_eregex_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
+                autocmd User ZFVimrcPostNormal
                             \ nnoremap / /\v|
                             \ nnoremap ? :M/|
                             \ nnoremap <leader>vr :.,$S//gec<left><left><left><left>|
@@ -616,7 +616,7 @@ if g:zf_no_plugin!=1
             endfunction
             augroup ZF_Plugin_incsearch_augroup
                 autocmd!
-                autocmd User ZFVimrcPost call ZF_Plugin_incsearch_setting()
+                autocmd User ZFVimrcPostHigh call ZF_Plugin_incsearch_setting()
             augroup END
         endif
         " ==================================================
@@ -880,13 +880,17 @@ if g:zf_no_plugin!=1
             let g:SuperTabContextDiscoverDiscovery=['&completefunc:<c-x><c-u>', '&omnifunc:<c-x><c-o>']
             let g:SuperTabLongestEnhanced=1
             let g:SuperTabLongestHighlight=1
+            function! ZF_Plugin_supertab_chain()
+                if &omnifunc!='' && exists('*SuperTabChain') && exists('*SuperTabSetDefaultCompletionType')
+                    call SuperTabChain(&omnifunc, '<c-p>')
+                    call SuperTabSetDefaultCompletionType('<c-x><c-u>')
+                endif
+            endfunction
             augroup ZF_Plugin_supertab_augroup
                 autocmd!
-                autocmd FileType *
-                            \ if &omnifunc!='' && exists('*SuperTabChain') && exists('*SuperTabSetDefaultCompletionType')|
-                            \     call SuperTabChain(&omnifunc, '<c-p>')|
-                            \     call SuperTabSetDefaultCompletionType('<c-x><c-u>')|
-                            \ endif
+                if !exists('g:ZF_Plugin_supertab_autoChain') || g:ZF_Plugin_supertab_autoChain==1
+                    autocmd FileType * call ZF_Plugin_supertab_chain()
+                endif
             augroup END
         endif
         " ==================================================
@@ -940,7 +944,7 @@ if g:zf_no_plugin!=1
             let g:Vimim_toggle='pinyin,baidu'
             augroup ZF_Plugin_VimIM_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
+                autocmd User ZFVimrcPostNormal
                             \ nnoremap <silent> ;; i<C-R>=g:Vimim_chinese()<CR><Esc>l|
                             \ inoremap <silent> ;; <C-R>=g:Vimim_chinese()<CR>|
                             \ nnoremap <silent> ;: i<C-R>=g:Vimim_onekey()<CR><Esc>l|
@@ -1197,7 +1201,7 @@ if g:zf_no_plugin!=1
                         \ }
             augroup ZF_Plugin_YouCompleteMe_augroup
                 autocmd!
-                autocmd User ZFVimrcPost
+                autocmd User ZFVimrcPostHigh
                             \ nnoremap zj :YcmCompleter GoTo<cr>|
                             \ nnoremap zk <c-o>
             augroup END
@@ -1735,7 +1739,7 @@ if 1 " custom key mapping
         " here's some tricks (using autocmd) to completely prevent the mapping from being executed
         augroup ZF_Setting_VimMacro_augroup
             autocmd!
-            autocmd User ZFVimrcPost
+            autocmd User ZFVimrcPostNormal
                         \ call ZF_Setting_VimMacroMap()|
                         \ nnoremap :: q:k$|
                         \ nnoremap // q/k$
@@ -1843,7 +1847,7 @@ if 1 " common settings
     if !has('nvim')
         augroup ZF_Setting_VimAltMap_augroup
             autocmd!
-            autocmd User ZFVimrcPost
+            autocmd User ZFVimrcPostLow
                         \ let c='a'|
                         \ while c <= 'z'|
                         \     execute "set <A-".c.">=\e".c|
@@ -2184,6 +2188,18 @@ endif " local env setting
 " final setup
 augroup ZF_VimrcPost_augroup
     autocmd!
-    doautocmd User ZFVimrcPost
+    autocmd User ZFVimrcPostLow let _dummy=0
+    autocmd User ZFVimrcPostNormal let _dummy=0
+    autocmd User ZFVimrcPostHigh let _dummy=0
+    if exists('v:vim_did_enter') && v:vim_did_enter
+        doautocmd User ZFVimrcPostLow
+        doautocmd User ZFVimrcPostNormal
+        doautocmd User ZFVimrcPostHigh
+    else
+        autocmd VimEnter *
+                    \ doautocmd User ZFVimrcPostLow|
+                    \ doautocmd User ZFVimrcPostNormal|
+                    \ doautocmd User ZFVimrcPostHigh
+    endif
 augroup END
 
