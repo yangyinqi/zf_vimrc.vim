@@ -882,7 +882,7 @@ if g:zf_no_plugin!=1
             let g:SuperTabLongestHighlight=1
             augroup ZF_Plugin_supertab_augroup
                 autocmd!
-                autocmd FileType,VimEnter *
+                autocmd FileType *
                             \ if &omnifunc!='' && exists('*SuperTabChain') && exists('*SuperTabSetDefaultCompletionType')|
                             \     call SuperTabChain(&omnifunc, '<c-p>')|
                             \     call SuperTabSetDefaultCompletionType('<c-x><c-u>')|
@@ -1236,7 +1236,7 @@ if g:zf_no_plugin!=1
             endfunction
             augroup ZF_Plugin_CompleteParameter_augroup
                 autocmd!
-                autocmd User ZFVimrcPost call ZF_Plugin_CompleteParameter_setting()
+                autocmd FileType * call ZF_Plugin_CompleteParameter_setting()
             augroup END
         endif
         " ==================================================
