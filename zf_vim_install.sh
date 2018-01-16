@@ -94,7 +94,11 @@ if test "x$ZF_neovim" = "x1" || test "x$ZF_neovim" = "x" ; then
         grep -wq "zf_vimrc.vim" "$_nvimrc" && _nvim_exist=1 || _nvim_exist=0
     fi
     if test "x$_nvim_exist" = "x0" ; then
+        mkdir -p ${_nvimrc%[/\\]*} >/dev/null 2>&1
+
+        echo "" >> "$_nvimrc"
         echo "source \$HOME/zf_vimrc.vim" >> "$_nvimrc"
+        echo "" >> "$_nvimrc"
     fi
 fi
 
