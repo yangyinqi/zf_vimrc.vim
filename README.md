@@ -133,7 +133,7 @@ which is self described
 
 # Uninstall
 
-to uninstall, remove these lines in your `.vimrc`
+to uninstall, remove these lines in your `.vimrc` and `.config/nvim/init.vim`
 
 ```
 source path/zf_vimrc.vim
