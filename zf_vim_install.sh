@@ -86,6 +86,19 @@ if test "x$_exist" = "x0"; then
 fi
 
 # ============================================================
+# neovim
+if test "x$ZF_neovim" = "x1" || test "x$ZF_neovim" = "x" ; then
+    _nvimrc=".config/nvim/init.vim"
+    _nvim_exist=0
+    if test -e "$_nvimrc"; then
+        grep -wq "zf_vimrc.vim" "$_nvimrc" && _nvim_exist=1 || _nvim_exist=0
+    fi
+    if test "x$_nvim_exist" = "x0" ; then
+        echo "source \$HOME/zf_vimrc.vim" >> "$_nvimrc"
+    fi
+fi
+
+# ============================================================
 # git update
 git config --global core.autocrlf false
 

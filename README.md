@@ -12,7 +12,6 @@
         * [minimal config](#minimal-config)
         * [YouCompleteMe](#youcompleteme)
         * [clang_complete](#clang_complete)
-    * [neovim](#neovim)
     * [Android's VimTouch](#androids-vimtouch)
     * [For simulation plugins of IDE](#for-simulation-plugins-of-ide)
 
@@ -64,21 +63,32 @@ settings:
 
 * `ZF_256` : use 256 color colorscheme
 
+    default: try to auto check
+
     may looks incorrect if used in non-256 color terminal
 
 * `ZF_YCM` : use `YouCompleteMe` instead of `clang_complete`
+
+    default: 0
 
     see `YouCompleteMe vs clang_complete` below for detailed info
 
 * `ZF_force` : remove all contents and perform clean install
 
-    items to remove before install
+    default: 0
+
+    these items would be removed before install
 
     ```
     ~/.vimrc
     ~/_vimrc
     ~/.vim
     ```
+
+* `ZF_neovim` : also install to neovim, which would add `source ~/zf_vimrc.vim`
+    to `~/.config/nvim/init.vim`
+
+    default: 1
 
 once installed, you may press `z?` to view a quick tutorial for this config
 
@@ -257,15 +267,6 @@ after this, the completion should work, for both plugin
 * semantic complete should be triggered manually by pressing `<tab>`
 * use `<tab>` to move between params after function completion
 
-
-## neovim
-
-* this config should work on neovim without any modification,
-    to use, simply add this line to your `.config/nvim/init.vim`
-
-    ```
-    source ~/zf_vimrc.vim
-    ```
 
 ## Android's VimTouch
 
