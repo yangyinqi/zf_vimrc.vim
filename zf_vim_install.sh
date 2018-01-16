@@ -73,6 +73,12 @@ if test "x$_exist" = "x0"; then
     fi
     echo "" >> "$_vimrc"
 
+    echo "\" * you may add your own config here, including extra Plugin, etc" >> "$_vimrc"
+    echo "function! ZF_UserConfig()" >> "$_vimrc"
+    echo "endfunction" >> "$_vimrc"
+    echo "autocmd User ZFVimrcPlug call ZF_UserConfig()" >> "$_vimrc"
+    echo "" >> "$_vimrc"
+
     echo "source \~/zf_vimrc.vim" >> "$_vimrc"
 fi
 
