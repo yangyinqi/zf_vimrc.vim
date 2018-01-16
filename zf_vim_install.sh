@@ -44,7 +44,7 @@ grep -wq "zf_vimrc.vim" "$_vimrc" && _exist=1 || _exist=0
 if test "x$_exist" = "x0"; then
     echo "" >> "$_vimrc"
 
-    echo "\" * if any weird problem occurred, uncomment one of these:" >> "$_vimrc"
+    echo "\" * for Cygwin users, if any weird problem occurred, uncomment one of these:" >> "$_vimrc"
     echo "\"" >> "$_vimrc"
     echo "\"     set shell=cmd.exe" >> "$_vimrc"
     echo "\"     set shellcmdflag=/c" >> "$_vimrc"
@@ -75,11 +75,13 @@ if test "x$_exist" = "x0"; then
 
     echo "\" * you may add your own config here, including extra Plugin, etc" >> "$_vimrc"
     echo "function! ZF_UserConfig()" >> "$_vimrc"
+    echo "    \" add your Plugin configs here"
     echo "endfunction" >> "$_vimrc"
     echo "autocmd User ZFVimrcPlug call ZF_UserConfig()" >> "$_vimrc"
     echo "" >> "$_vimrc"
 
     echo "source \~/zf_vimrc.vim" >> "$_vimrc"
+    echo "" >> "$_vimrc"
 fi
 
 # ============================================================
