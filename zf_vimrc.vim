@@ -286,15 +286,19 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_clever_f==1
             Plug 'rhysd/clever-f.vim'
             let g:clever_f_not_overwrites_standard_mappings=1
-            nmap f <Plug>(clever-f-f)
-            xmap f <Plug>(clever-f-f)
-            omap f <Plug>(clever-f-f)
-            nmap F <Plug>(clever-f-F)
-            xmap F <Plug>(clever-f-F)
-            omap F <Plug>(clever-f-F)
             let g:clever_f_across_no_line=1
             let g:clever_f_smart_case=1
             let g:clever_f_fix_key_direction=1
+            augroup ZF_Plugin_clever_f_augroup
+                autocmd!
+                autocmd User ZFVimrcPostNormal
+                            \ nmap f <Plug>(clever-f-f)|
+                            \ xmap f <Plug>(clever-f-f)|
+                            \ omap f <Plug>(clever-f-f)|
+                            \ nmap F <Plug>(clever-f-F)|
+                            \ xmap F <Plug>(clever-f-F)|
+                            \ omap F <Plug>(clever-f-F)
+            augroup END
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_CmdlineComplete')
@@ -505,14 +509,15 @@ if g:zf_no_plugin!=1
             let g:EasyMotion_smartcase=1
             let g:EasyMotion_use_upper=1
             let g:EasyMotion_keys='ASDGHKLQWERTYUIOPZXCVBNMFJ'
-            nmap s <plug>(easymotion-s)
-            xmap s <plug>(easymotion-s)
-            omap s <plug>(easymotion-s)
-            nmap S <plug>(easymotion-sol-bd-jk)
-            xmap S <plug>(easymotion-sol-bd-jk)
-            omap S <plug>(easymotion-sol-bd-jk)
             augroup ZF_Plugin_easymotion_augroup
                 autocmd!
+                autocmd User ZFVimrcPostNormal
+                            \ nmap s <plug>(easymotion-s)|
+                            \ xmap s <plug>(easymotion-s)|
+                            \ omap s <plug>(easymotion-s)|
+                            \ nmap S <plug>(easymotion-sol-bd-jk)|
+                            \ xmap S <plug>(easymotion-sol-bd-jk)|
+                            \ omap S <plug>(easymotion-sol-bd-jk)
                 autocmd User ZFVimrcPostNormal
                             \ highlight EasyMotionTarget guibg=NONE guifg=White|
                             \ highlight EasyMotionTarget ctermbg=NONE ctermfg=White|
@@ -565,9 +570,13 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_expand_region==1
             Plug 'terryma/vim-expand-region'
-            nmap t <Plug>(expand_region_expand)
-            xmap t <Plug>(expand_region_expand)
-            xmap T <Plug>(expand_region_shrink)
+            augroup ZF_Plugin_expand_region_augroup
+                autocmd!
+                autocmd User ZFVimrcPostNormal
+                            \ nmap t <Plug>(expand_region_expand)|
+                            \ xmap t <Plug>(expand_region_expand)|
+                            \ xmap T <Plug>(expand_region_shrink)
+            augroup END
             let g:expand_region_text_objects = {
                         \   "i'":0, 'i"':0, 'i`':0, 'i)':1, 'i]':1, 'i}':1, 'i>':1, 'it':1,
                         \   "a'":0, 'a"':0, 'a`':0, 'a)':1, 'a]':1, 'a}':1, 'a>':1, 'at':1,
@@ -901,12 +910,16 @@ if g:zf_no_plugin!=1
             Plug 'tpope/vim-surround'
             let g:surround_no_mappings=1
             let g:surround_no_insert_mappings=1
-            nmap rd <plug>Dsurround
-            nmap RD <plug>Dsurround
-            nmap rc <plug>Csurround
-            nmap RC <plug>CSurround
-            xmap r <plug>VSurround
-            xmap R <plug>VgSurround
+            augroup ZF_Plugin_surround_augroup
+                autocmd!
+                autocmd User ZFVimrcPostNormal
+                            \ nmap rd <plug>Dsurround|
+                            \ nmap RD <plug>Dsurround|
+                            \ nmap rc <plug>Csurround|
+                            \ nmap RC <plug>CSurround|
+                            \ xmap r <plug>VSurround|
+                            \ xmap R <plug>VgSurround
+            augroup END
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_tagbar')
