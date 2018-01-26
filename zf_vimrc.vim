@@ -1017,6 +1017,13 @@ if g:zf_no_plugin!=1
             nnoremap <leader>ce :call ZF_VimEscape()<cr>
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_ZFVimExpand')
+            let g:ZF_Plugin_ZFVimExpand=1
+        endif
+        if g:ZF_Plugin_ZFVimExpand==1
+            Plug 'ZSaberLv0/ZFVimExpand'
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_ZFVimFoldBlock')
             let g:ZF_Plugin_ZFVimFoldBlock=1
         endif
