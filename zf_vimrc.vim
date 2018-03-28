@@ -957,7 +957,7 @@ if g:zf_no_plugin!=1
                 autocmd!
                 autocmd FileType __TERMINAL__ nnoremap <buffer> q :q<cr>:echo 'Terminal closed'<cr>
             augroup END
-            nnoremap <silent> <leader>zs :execute ':Terminal ' . &shell<cr>
+            nnoremap <silent> <leader>zs :Terminal<cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_VimIM')
