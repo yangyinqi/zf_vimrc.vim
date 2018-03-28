@@ -978,8 +978,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_terminal=1
         endif
         if g:ZF_Plugin_terminal==1
-            " Plug 'mattn/vim-terminal'
-            Plug 'ZSaberLv0/vim-terminal'
+            Plug 'mattn/vim-terminal'
             augroup ZF_Plugin_terminal_augroup
                 autocmd!
                 autocmd FileType __TERMINAL__ nnoremap <buffer> q :q<cr>:echo 'Terminal closed'<cr>
