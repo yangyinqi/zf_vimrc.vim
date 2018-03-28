@@ -45,7 +45,7 @@ if 1 " global settings
 
     " turn on this to improve performance (especially for some low performance shell or ssh)
     if !exists('g:zf_low_performance')
-        let g:zf_low_performance=0
+        let g:zf_low_performance=!has('gui')
     endif
     augroup ZF_VimLowPerf_augroup
         autocmd!
@@ -806,12 +806,12 @@ if g:zf_no_plugin!=1
             Plug 'andymass/vim-matchup'
             augroup ZF_Plugin_matchup_augroup
                 autocmd!
-                autocmd User ZFVimLowPerf
+                autocmd User ZFVimLowPerf,ZFVimrcPostLow
                             \ if g:matchup_matchparen_enabled==g:zf_low_performance|
                             \     call matchup#matchparen#toggle()|
                             \ endif
             augroup END
-            let g:matchup_matchparen_enabled=!g:zf_low_performance
+            let g:matchup_matchparen_enabled=1
             let g:matchup_matchparen_status_offscreen=0
         endif
         " ==================================================
