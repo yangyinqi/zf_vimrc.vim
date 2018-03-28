@@ -780,11 +780,12 @@ if g:zf_no_plugin!=1
             nnoremap ZD :call ZF_Plugin_linediff_DiffExit()<cr>
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_matchit')
-            let g:ZF_Plugin_matchit=1
+        if !exists('g:ZF_Plugin_matchup')
+            let g:ZF_Plugin_matchup=1
         endif
-        if g:ZF_Plugin_matchit==1
-            Plug 'vim-scripts/matchit.zip'
+        if g:ZF_Plugin_matchup==1
+            Plug 'andymass/vim-matchup'
+            let g:matchup_matchparen_status_offscreen=0
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_nerdtree')
@@ -944,6 +945,19 @@ if g:zf_no_plugin!=1
             let g:tagbar_map_zoomwin=''
 
             nnoremap <silent> <leader>vt :TagbarToggle<cr>
+        endif
+        " ==================================================
+        if !exists('g:ZF_Plugin_terminal')
+            let g:ZF_Plugin_terminal=1
+        endif
+        if g:ZF_Plugin_terminal==1
+            " Plug 'mattn/vim-terminal'
+            Plug 'ZSaberLv0/vim-terminal'
+            augroup ZF_Plugin_terminal_augroup
+                autocmd!
+                autocmd FileType __TERMINAL__ nnoremap <buffer> q :q<cr>:echo 'Terminal closed'<cr>
+            augroup END
+            nnoremap <silent> <leader>zs :execute ':Terminal ' . &shell<cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_VimIM')
@@ -2013,12 +2027,6 @@ if 1 " common settings
     " cursorline
     set linespace=2
     set cursorline
-    highlight Cursor gui=NONE guibg=green guifg=black
-    highlight Cursor cterm=NONE ctermbg=green ctermfg=black
-    highlight CursorLine gui=underline guibg=NONE guifg=NONE
-    highlight CursorLine cterm=bold ctermbg=NONE ctermfg=NONE
-    highlight CursorLineNr gui=reverse guibg=NONE guifg=NONE
-    highlight CursorLineNr cterm=reverse ctermbg=NONE ctermfg=NONE
     " complete
     if g:zf_fakevim!=1
         inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
@@ -2076,12 +2084,16 @@ endif " common settings
 
 " ==================================================
 if 1 " custom themes
+    highlight Cursor gui=NONE guibg=green guifg=black
+    highlight Cursor cterm=NONE ctermbg=green ctermfg=black
+    highlight CursorLine gui=underline guibg=NONE guifg=NONE
+    highlight CursorLine cterm=bold ctermbg=NONE ctermfg=NONE
     highlight Folded gui=NONE guibg=NONE guifg=DarkBlue
     highlight Folded cterm=NONE ctermbg=NONE ctermfg=DarkBlue
     highlight IncSearch ctermbg=White ctermfg=Red
     highlight IncSearch guibg=White guifg=Red
-    highlight MatchParen ctermbg=DarkBlue ctermfg=Red
-    highlight MatchParen guibg=DarkBlue guifg=Red
+    highlight MatchParen ctermbg=DarkRed ctermfg=White
+    highlight MatchParen guibg=DarkRed guifg=White
     highlight NonText ctermbg=NONE ctermfg=DarkRed
     highlight NonText guibg=NONE guifg=DarkRed
     highlight Pmenu gui=NONE guibg=Gray guifg=Black
