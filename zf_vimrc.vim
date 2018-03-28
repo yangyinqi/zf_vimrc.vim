@@ -1012,7 +1012,7 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_youdao_translater==1
             Plug 'ianva/vim-youdao-translater'
             xnoremap <leader>vy <esc>:Ydv<cr>
-            nnoremap <leader>vy :Yde<cr><c-r><c-w>
+            nnoremap <leader>vy :Yde<cr><c-r>=expand('<cword>')<cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimCmdMenu')
@@ -2160,10 +2160,12 @@ if 1
 
     function! ZFVimrcGuide_tools()
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vgf / <leader>vgr to grep/replace (with perl regexp syntax)', 'itemType':'keep'})
+        call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>zs to open interactive shell within vim', 'itemType':'keep'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vs / <leader>vc to run shell/vim command and copy result to clipboard', 'itemType':'keep'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vvs / <leader>vvc to run shell/vim command in clipboard and copy result to clipboard', 'itemType':'keep'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vvo to open all file in clipboard', 'itemType':'keep'})
-        call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vdb / <leader>vdf to diff two buffer/file', 'itemType':'keep'})
+        call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vdb / <leader>vdf / <leader>vdd to diff two buffer/file/dir', 'itemType':'keep'})
+        call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>vy to open translate util', 'itemType':'keep'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>cc to open convert utility', 'command':'call ZF_Convert()'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>ce to open escape utility', 'command':'call ZF_VimEscape()'})
         call ZF_VimCmdMenuAdd({'showKeyHint':1, 'text':'<leader>cf to open formater utility', 'command':'call ZF_Formater()'})
