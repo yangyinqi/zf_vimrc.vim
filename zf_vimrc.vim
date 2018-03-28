@@ -43,6 +43,25 @@ if 1 " global settings
         map ' <leader>
     endif
 
+    " turn on this to improve performance (especially for some low performance shell or ssh)
+    if !exists('g:zf_low_performance')
+        let g:zf_low_performance=0
+    endif
+    augroup ZF_VimLowPerf_augroup
+        autocmd!
+        autocmd User ZFVimLowPerf let _dummy=0
+    augroup END
+    function! ZF_VimLowPerfToggle()
+        let g:zf_low_performance=!g:zf_low_performance
+        if g:zf_low_performance
+            echo 'low performance mode on'
+        else
+            echo 'low performance mode off'
+        endif
+        doautocmd User ZFVimLowPerf
+    endfunction
+    command! -nargs=0 ZFLowPerfToggle :call ZF_VimLowPerfToggle()
+
     " global ignore
     let g:zf_exclude_common = []
     let g:zf_exclude_common += [ 'tags' , '.vim_tags' ]
@@ -785,6 +804,14 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_matchup==1
             Plug 'andymass/vim-matchup'
+            augroup ZF_Plugin_matchup_augroup
+                autocmd!
+                autocmd User ZFVimLowPerf
+                            \ if g:matchup_matchparen_enabled==g:zf_low_performance|
+                            \     call matchup#matchparen#toggle()|
+                            \ endif
+            augroup END
+            let g:matchup_matchparen_enabled=!g:zf_low_performance
             let g:matchup_matchparen_status_offscreen=0
         endif
         " ==================================================
@@ -2026,7 +2053,11 @@ if 1 " common settings
     augroup END
     " cursorline
     set linespace=2
-    set cursorline
+    augroup ZF_Setting_cursorline_augroup
+        autocmd!
+        autocmd User ZFVimLowPerf let &cursorline=!g:zf_low_performance
+    augroup END
+    let &cursorline=!g:zf_low_performance
     " complete
     if g:zf_fakevim!=1
         inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
