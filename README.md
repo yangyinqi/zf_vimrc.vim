@@ -5,8 +5,8 @@
     * [Quick Install](#quick-install)
     * [Manual Install](#manual-install)
     * [Uninstall](#uninstall)
+    * [Additional Requirement](#additional-requirement)
 * [Customizing](#customizing)
-* [Additional Requirement](#additional-requirement)
 * [Platform Spec](#platform-spec)
     * [Cygwin](#cygwin)
     * [YouCompleteMe vs clang_complete](#youcompleteme-vs-clang_complete)
@@ -157,6 +157,35 @@ $HOME/zf_vimrc.vim
 ```
 
 
+## Additional Requirement
+
+* [cygwin](https://www.cygwin.com)
+
+    not necessary, but strongly recommended for Windows users
+
+* GNU grep (greater than 2.5.3)
+
+    for [vim-easygrep](https://github.com/dkprice/vim-easygrep) if you want to use Perl style regexp
+
+    note the FreeBSD version won't work due to the lack of `-P` option of `grep`
+
+* [Pandoc](http://pandoc.org/)
+
+    for Markdown preview and conversion
+
+* [LLVM](http://llvm.org/)
+
+    for [clang_complete](https://github.com/Rip-Rip/clang_complete), you should:
+
+    * have python support
+    * have `g:clang_library_path` been set properly
+
+        the default config may suit most case, modify it if necessary
+
+        recommended to install LLVM at default location,
+        if so, this config would be able to config it automatically
+
+
 # Customizing
 
 * all builtin plugins can be disabled by adding this before `source zf_vimrc.vim`
@@ -185,35 +214,6 @@ $HOME/zf_vimrc.vim
     Plug 'username/your_plugin2_name'
     let your_plugin2_config=yyy
     ```
-
-
-# Additional Requirement
-
-* [cygwin](https://www.cygwin.com)
-
-    not necessary, but strongly recommended for Windows users
-
-* GNU grep (greater than 2.5.3)
-
-    for [vim-easygrep](https://github.com/dkprice/vim-easygrep) if you want to use Perl style regexp
-
-    note the FreeBSD version won't work due to the lack of `-P` option of `grep`
-
-* [Pandoc](http://pandoc.org/)
-
-    for Markdown preview and conversion
-
-* [LLVM](http://llvm.org/)
-
-    for [clang_complete](https://github.com/Rip-Rip/clang_complete), you should:
-
-    * have python support
-    * have `g:clang_library_path` been set properly
-
-        the default config may suit most case, modify it if necessary
-
-        recommended to install LLVM at default location,
-        if so, this config would be able to config it automatically
 
 
 # Platform Spec
