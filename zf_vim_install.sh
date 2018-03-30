@@ -42,6 +42,8 @@ zf_vim_install () {
     grep -wq "zf_vimrc.vim" "$_vimrc" && _exist=1 || _exist=0
 
     if test "x$_exist" = "x0"; then
+        mkdir -p "${_vimrc%[/\\]*}"
+
         echo "" >> "$_vimrc"
 
         echo "\" * for Cygwin users, if any weird problem occurred, uncomment one of these:" >> "$_vimrc"
