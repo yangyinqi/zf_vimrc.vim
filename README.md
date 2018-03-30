@@ -3,6 +3,7 @@
 * [Introduction](#introduction)
 * [Install](#install)
     * [Quick Install](#quick-install)
+    * [Settings](#settings)
     * [Manual Install](#manual-install)
     * [Uninstall](#uninstall)
     * [Additional Requirement](#additional-requirement)
@@ -62,12 +63,19 @@ curl zsaber.com/vim | sh
 # or, run the install script directly
 sh zf_vim_install.sh
 
-# optionally, change settings before running the shell script
+# optionally, change settings (listed below) before running the shell script
 export ZF_xxx=1
 curl zsaber.com/vim | sh
 ```
 
-settings:
+once installed, you may press `z?` to view a quick tutorial for this config
+
+further more, you may use `<leader>vimru` or `call ZF_VimrcUpdate()`
+or run `curl zsaber.com/vim | sh` again,
+to update from this repo
+
+
+## Settings
 
 * `ZF_256` : use 256 color colorscheme
 
@@ -98,8 +106,6 @@ settings:
     to `~/.config/nvim/init.vim`
 
     default: 1 if nvim exist
-
-once installed, you may press `z?` to view a quick tutorial for this config
 
 
 ## Manual Install
