@@ -39,7 +39,7 @@ fi
 zf_vim_install () {
     _vimrc=$1
     _exist=0
-    grep -wq "zf_vimrc.vim" "$_vimrc" && _exist=1 || _exist=0
+    grep -wq "zf_vimrc.vim" "$_vimrc" >/dev/null 2>&1 && _exist=1 || _exist=0
 
     if test "x$_exist" = "x0"; then
         mkdir -p "${_vimrc%[/\\]*}" >/dev/null 2>&1
@@ -109,7 +109,7 @@ if test "x$ZF_neovim" = "x1" ; then
     _nvimrc=".config/nvim/init.vim"
     _nvim_exist=0
     if test -e "$_nvimrc"; then
-        grep -wq "zf_vimrc.vim" "$_nvimrc" && _nvim_exist=1 || _nvim_exist=0
+        grep -wq "zf_vimrc.vim" "$_nvimrc" >/dev/null 2>&1 && _nvim_exist=1 || _nvim_exist=0
     fi
     if test "x$_nvim_exist" = "x0" ; then
         zf_vim_install $_nvimrc
