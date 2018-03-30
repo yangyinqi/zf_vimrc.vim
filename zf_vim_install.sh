@@ -28,10 +28,10 @@ cd ~
 # ============================================================
 # clean
 if test "x$ZF_force" = "x1" ; then
-    rm "~/.vimrc"
-    rm "~/_vimrc"
-    rm "~/.vim"
-    rm "~/.config/nvim/init.vim"
+    rm "~/.vimrc" >/dev/null 2>&1
+    rm "~/_vimrc" >/dev/null 2>&1
+    rm "~/.vim" >/dev/null 2>&1
+    rm "~/.config/nvim/init.vim" >/dev/null 2>&1
 fi
 
 # ============================================================
