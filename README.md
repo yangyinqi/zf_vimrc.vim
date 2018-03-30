@@ -1,9 +1,10 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
-* [Quick Install](#quick-install)
-* [Manual Install](#manual-install)
-* [Uninstall](#uninstall)
+* [Install](#install)
+    * [Quick Install](#quick-install)
+    * [Manual Install](#manual-install)
+    * [Uninstall](#uninstall)
 * [Customizing](#customizing)
 * [Additional Requirement](#additional-requirement)
 * [Platform Spec](#platform-spec)
@@ -21,11 +22,17 @@
 
 my personal vimrc config for vim
 
-aiming to be used under multi platforms, low dependency, yet powerful for general usage
+main purpose:
+
+* cross platform, and keep similar user experience for these platforms
+* low dependency, no anoying lag or errors for old versions and envs
+* powerful for general usage
+
 
 tested:
 
 * vim version 7.3 or above
+* neovim version 0.1 or above
 * Windows's gVim
 * cygwin's vim
 * Mac OS's vim and macvim (console or GUI)
@@ -34,7 +41,6 @@ tested:
 
 may work: (search and see `g:zf_fakevim`)
 
-* neovim (not fully tested, but should work for most case)
 * Qt Creator's FakeVim (able to use, no plugin support, some keymap doesn't work)
 * IntelliJ IDEA's IdeaVim (able to use, no plugin support, some keymap doesn't work)
 * XCode's XVim (not recommended, some action have unexpected behavior)
@@ -44,7 +50,9 @@ for me, I use this config mainly for `C/C++` `markdown` `PHP` development,
 as well as for default text editor and log viewer
 
 
-# Quick Install
+# Install
+
+## Quick Install
 
 if you have `curl`, `git`, `vim` installed, here's a very simple command to install everything:
 
@@ -83,17 +91,18 @@ settings:
     ~/.vimrc
     ~/_vimrc
     ~/.vim
+    ~/.config/nvim/init.vim
     ```
 
 * `ZF_neovim` : also install to neovim, which would add `source ~/zf_vimrc.vim`
     to `~/.config/nvim/init.vim`
 
-    default: 1
+    default: 1 if nvim exist
 
 once installed, you may press `z?` to view a quick tutorial for this config
 
 
-# Manual Install
+## Manual Install
 
 1. download or clone the `zf_vimrc.vim` file to anywhere
 1. have these in your `.vimrc` (under linux) or `_vimrc` (under Windows):
@@ -131,7 +140,7 @@ for a list of plugins and configs, please refer to the
 which is self described
 
 
-# Uninstall
+## Uninstall
 
 to uninstall, remove these lines in your `.vimrc` and `.config/nvim/init.vim`
 
