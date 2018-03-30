@@ -45,7 +45,7 @@ if 1 " global settings
 
     " turn on this to improve performance (especially for some low performance shell or ssh)
     if !exists('g:zf_low_performance')
-        let g:zf_low_performance=!has('gui')
+        let g:zf_low_performance=!has('nvim')&&!has('gui')
     endif
     augroup ZF_VimLowPerf_augroup
         autocmd!
