@@ -130,6 +130,10 @@ rm -rf ~/.vim/bundle/vim-plug >/dev/null 2>&1
 git clone --depth=1 --single-branch https://github.com/ZSaberLv0/vim-plug ~/.vim/bundle/vim-plug
 
 $ZF_VIM +PlugUpdate +qall
+# nvim may have different plugins, update again
+if test "x$_vim_exist" = "x1" && test "x$_nvim_exist" = "x1" ; then
+    nvim +PlugInstall +qall
+fi
 
 cd "$_old_dir"
 
