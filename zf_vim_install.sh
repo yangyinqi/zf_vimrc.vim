@@ -3,16 +3,16 @@
 # ============================================================
 # global check
 _git_exist=0
-git --version >/dev/null && _git_exist=1 || _git_exist=0
+git --version >/dev/null 2>&1 && _git_exist=1 || _git_exist=0
 if test "x$_git_exist" = "x0"; then
     echo "error: git not installed"
     exit
 fi
 
 _vim_exist=0
-vim --version >/dev/null && _vim_exist=1 || _vim_exist=0
+vim --version >/dev/null 2>&1 && _vim_exist=1 || _vim_exist=0
 _nvim_exist=0
-nvim --version >/dev/null && _nvim_exist=1 || _nvim_exist=0
+nvim --version >/dev/null 2>&1 && _nvim_exist=1 || _nvim_exist=0
 if test "x$_vim_exist" = "x1" ; then
     ZF_VIM=vim
 elif test "x$_nvim_exist" = "x1" ; then
