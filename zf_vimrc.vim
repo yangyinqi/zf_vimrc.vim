@@ -618,23 +618,13 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_incsearch==1
             Plug 'haya14busa/incsearch.vim'
             Plug 'haya14busa/incsearch-fuzzy.vim'
-            function! ZF_Plugin_incsearch_fixPattern(pattern)
-                let pattern = a:pattern
-                let chars = map(split(pattern, '\zs'), "escape(v:val, '\\')")
-                let nonword = strlen(matchstr(pattern, '[^0-9a-zA-Z_]')) > 0
-                let p = '\V\<\=' .
-                            \   join(map(chars[0:-2], "
-                            \       printf('%s%s', v:val, nonword ? '\\.\\{-}' : '\\[0-9a-zA-Z_]\\{-}')
-                            \   "), '') . chars[-1]
-                return p
-            endfunction
             function! ZF_Plugin_incsearch_setting()
                 if !exists('g:loaded_incsearch_fuzzy')
                     return
                 endif
 
-                nmap <silent><expr> / incsearch#go({'converters' : [function('ZF_Plugin_incsearch_fixPattern')]})
-                nmap <silent> <leader>vf <Plug>(incsearch-fuzzyword-/)
+                nmap <silent> / <Plug>(incsearch-fuzzyword-/)
+                nmap <silent> <leader>vf <Plug>(incsearch-fuzzy-/)
                 nnoremap <leader>zf /\v
                 if has('clipboard')
                     cnoremap <s-insert> <c-r>*
@@ -670,7 +660,7 @@ if g:zf_no_plugin!=1
             Plug 'Yggdroot/LeaderF'
             let g:Lf_ShortcutF = '<c-o>'
             let g:Lf_CursorBlink = 0
-            let g:Lf_CacheDiretory = $HOME.'/.vim_cache/leaderf'
+            let g:Lf_CacheDirectory = $HOME.'/.vim_cache/leaderf'
             function! ZF_Plugin_LeaderF_updateIgnore()
                 let file = []
                 let file += g:zf_exclude_common
