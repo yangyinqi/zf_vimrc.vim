@@ -399,7 +399,7 @@ if g:zf_no_plugin!=1
                 return param
             endfunction
             command! -nargs=* -range -bang ZFEasyAlign execute '<line1>,<line2>EasyAlign' ZF_Plugin_EasyAlign_regexFix(<q-args>)
-            xmap <leader>ca :ZFEasyAlign /\v/<left>
+            xmap <leader>ca :ZFEasyAlign /\v/l0r0>al<left><left><left><left><left><left><left><left>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_easygrep')
