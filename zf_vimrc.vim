@@ -1297,7 +1297,7 @@ if g:zf_no_plugin!=1
         if !exists('g:ZF_Plugin_clang_complete')
             let g:ZF_Plugin_clang_complete=1
         endif
-        if g:ZF_Plugin_YouCompleteMe==1 || !has('python')
+        if g:ZF_Plugin_YouCompleteMe==1 || (!has('python') && !has('python3'))
             let g:ZF_Plugin_clang_complete=0
         endif
         if g:ZF_Plugin_clang_complete==1
