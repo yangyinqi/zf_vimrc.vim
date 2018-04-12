@@ -1029,6 +1029,7 @@ if g:zf_no_plugin!=1
             Plug 'ianva/vim-youdao-translater'
             xnoremap <leader>vy <esc>:Ydv<cr>
             nnoremap <leader>vy :Yde<cr><c-r>=expand('<cword>')<cr>
+            nnoremap <leader>zy :Yde<cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimCmdMenu')
