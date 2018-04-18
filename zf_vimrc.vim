@@ -141,6 +141,7 @@ if 1 " global settings
     if !exists('g:zf_git_user_name')
         let g:zf_git_user_name = 'ZSaberLv0'
     endif
+    " you may set g:zf_git_user_token to git push without password
     function! ZF_GitGlobalConfig()
         call system('git config --global user.email "' . g:zf_git_user_email . '"')
         call system('git config --global user.name "' . g:zf_git_user_name . '"')
