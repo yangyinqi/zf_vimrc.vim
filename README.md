@@ -240,7 +240,7 @@ because it has less dependency and easier to install (the default config should 
 if you want the more powerful [YouCompleteMe](https://github.com/Valloric/YouCompleteMe):
 
 * go [YouCompleteMe Installation](https://github.com/Valloric/YouCompleteMe#installation)
-    to check whether your system matches the requirement (Windows not supported for this config)
+    to check whether your system matches the requirement
 * add `let g:plugin_YouCompleteMe=1` to your `.vimrc` before `source zf_vimrc.vim`
 * manually update plugin by `:PlugUpdate`
 
@@ -260,7 +260,7 @@ after this, the completion should work, for both plugin
 ### YouCompleteMe
 
 * require much time to install the plugin for first time
-* doesn't work under Windows, it's too hard to config it, and it would fallback to clang_complete in this config
+* quite hard to config under Windows, not recommended
 * semantic complete keymap should be `<tab>`, and should trigger automatically when you start typing
 * use `<tab>` to move between params after function completion
 

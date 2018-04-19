@@ -1239,7 +1239,7 @@ if g:zf_no_plugin!=1
         if !exists('g:ZF_Plugin_YouCompleteMe')
             let g:ZF_Plugin_YouCompleteMe=0
         endif
-        if g:zf_windows==1 || v:version < 800 || (!has('python') && !has('python3'))
+        if v:version < 800 || (!has('python') && !has('python3'))
             let g:ZF_Plugin_YouCompleteMe=0
         endif
         if g:ZF_Plugin_YouCompleteMe==1
