@@ -217,12 +217,28 @@ if g:zf_no_plugin!=1
             Plug 'cohama/agit.vim'
             let g:agit_no_default_mappings=1
             let g:agit_ignore_spaces=0
+            function! ZF_Plugin_agit_diffMap(localMode)
+                let tabCount = tabpagenr('$')
+                if a:localMode
+                    silent! execute "normal \<Plug>(agit-diff-with-local)"
+                else
+                    silent! execute "normal \<Plug>(agit-diff)"
+                endif
+                if tabpagenr('$') <= tabCount
+                    return
+                endif
+                execute "normal! \<c-w>h"
+                nnoremap <buffer> q :tabclose<cr>
+                execute "normal! \<c-w>l"
+                nnoremap <buffer> q :tabclose<cr>
+                normal! ]czz
+            endfunction
             augroup ZF_Plugin_agit_augroup
                 autocmd!
                 autocmd FileType agit,agit_stat,agit_diff
                             \ nmap <silent><buffer> q <Plug>(agit-exit)|
-                            \ nmap <silent><buffer> DD <Plug>(agit-diff)|
-                            \ nmap <silent><buffer> DI <Plug>(agit-diff-with-local)
+                            \ nmap <silent><buffer> DD :call ZF_Plugin_agit_diffMap(0)<cr>|
+                            \ nmap <silent><buffer> DI :call ZF_Plugin_agit_diffMap(1)<cr>
             augroup END
         endif
         " ==================================================
