@@ -217,24 +217,12 @@ if g:zf_no_plugin!=1
             Plug 'cohama/agit.vim'
             let g:agit_no_default_mappings=1
             let g:agit_ignore_spaces=0
-            function! ZF_Plugin_agit_print_commitmsg()
-                try
-                    execute "normal \<Plug>(agit-print-commitmsg)"
-                endtry
-            endfunction
-            function! ZF_Plugin_agit_diff()
-                silent! execute "normal \<Plug>(agit-diff)"
-            endfunction
-            function! ZF_Plugin_agit_diff_with_local()
-                silent! execute "normal \<Plug>(agit-diff-with-local)"
-            endfunction
             augroup ZF_Plugin_agit_augroup
                 autocmd!
                 autocmd FileType agit,agit_stat,agit_diff
                             \ nmap <silent><buffer> q <Plug>(agit-exit)|
-                            \ nmap <silent><buffer> p :call ZF_Plugin_agit_print_commitmsg()<cr>|
-                            \ nmap <silent><buffer> DD :call ZF_Plugin_agit_diff()<cr>|
-                            \ nmap <silent><buffer> DI :call ZF_Plugin_agit_diff_with_local()<cr>
+                            \ nmap <silent><buffer> DD <Plug>(agit-diff)|
+                            \ nmap <silent><buffer> DI <Plug>(agit-diff-with-local)
             augroup END
         endif
         " ==================================================
