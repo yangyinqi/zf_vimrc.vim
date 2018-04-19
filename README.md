@@ -3,7 +3,7 @@
 * [Introduction](#introduction)
 * [Install](#install)
     * [Quick Install](#quick-install)
-    * [Settings](#settings)
+    * [Install Settings](#install-settings)
     * [Manual Install](#manual-install)
     * [Uninstall](#uninstall)
     * [Additional Requirement](#additional-requirement)
@@ -59,23 +59,21 @@ if you have `curl`, `git`, `vim` installed, here's a very simple command to inst
 
 ```
 curl zsaber.com/vim | sh
+```
 
+```
 # or, run the install script directly
 sh zf_vim_install.sh
 
-# optionally, change settings (listed below) before running the shell script
+# optionally, change install settings (listed below) before running the shell script
 export ZF_xxx=1
 curl zsaber.com/vim | sh
 ```
 
-once installed, you may press `z?` to view a quick tutorial for this config
-
-further more, you may use `<leader>vimru` or `call ZF_VimrcUpdate()`
-or run `curl zsaber.com/vim | sh` again,
-to update from this repo
+<b>once installed, you may press `z?` to view a quick tutorial for this config</b>
 
 
-## Settings
+## Install Settings
 
 * `ZF_256` : use 256 color colorscheme
 
@@ -131,16 +129,6 @@ to update from this repo
     :PlugUpdate
     ```
 
-1. it's recommended to modify platform-dependent settings in `.vimrc`, such as:
-
-    ```
-    au GUIEnter * simalt ~x
-    set guifont=Consolas:h12
-    set termencoding=cp936
-    let g:zf_colorscheme_256=1
-    source path/zf_vimrc.vim
-    ```
-
 for a list of plugins and configs, please refer to the
 [zf_vimrc.vim](https://github.com/ZSaberLv0/zf_vimrc.vim/blob/master/zf_vimrc.vim) itself,
 which is self described
@@ -194,6 +182,16 @@ $HOME/zf_vimrc.vim
 
 # Customizing
 
+1. it's recommended to modify platform-dependent settings in `.vimrc`, such as:
+
+    ```
+    au GUIEnter * simalt ~x
+    set guifont=Consolas:h12
+    set termencoding=cp936
+    let g:zf_colorscheme_256=1
+    source path/zf_vimrc.vim
+    ```
+
 * all builtin plugins can be disabled by adding this before `source zf_vimrc.vim`
 
     ```
@@ -203,22 +201,13 @@ $HOME/zf_vimrc.vim
 * to add your own plugin, add this before `source zf_vimrc.vim`
 
     ```
-    autocmd User ZFVimrcPlug
-        \ Plug 'username/your_plugin_name'|
-        \ let your_plugin_config=xxx
-    ```
-
-    to make the config more readable, you may want to save it to a `*.vim` then `source` it
-
-    ```
-    " in .vimrc
-    autocmd User ZFVimrcPlug source "~/your_config.vim"
-
-    " in your_config.vim
-    Plug 'username/your_plugin1_name'
-    let your_plugin1_config=xxx
-    Plug 'username/your_plugin2_name'
-    let your_plugin2_config=yyy
+    function! MyPlugSetting()
+        Plug 'username/your_plugin1_name'
+        let your_plugin1_config=xxx
+        Plug 'username/your_plugin2_name'
+        let your_plugin2_config=yyy
+    endfunction
+    autocmd User ZFVimrcPlug call MyPlugSetting()
     ```
 
 
