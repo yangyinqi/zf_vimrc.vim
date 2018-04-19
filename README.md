@@ -3,7 +3,7 @@
 * [Introduction](#introduction)
 * [Install](#install)
     * [Quick Install](#quick-install)
-    * [Install Settings](#install-settings)
+        * [Install Settings](#install-settings)
     * [Manual Install](#manual-install)
     * [Uninstall](#uninstall)
     * [Additional Requirement](#additional-requirement)
@@ -73,7 +73,7 @@ curl zsaber.com/vim | sh
 <b>once installed, you may press `z?` to view a quick tutorial for this config</b>
 
 
-## Install Settings
+### Install Settings
 
 * `ZF_256` : use 256 color colorscheme
 
