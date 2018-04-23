@@ -220,9 +220,9 @@ if g:zf_no_plugin!=1
             function! ZF_Plugin_agit_diffMap(localMode)
                 let tabCount = tabpagenr('$')
                 if a:localMode
-                    silent! execute "normal \<Plug>(agit-diff-with-local)"
+                    execute "normal \<Plug>(agit-diff-with-local)"
                 else
-                    silent! execute "normal \<Plug>(agit-diff)"
+                    execute "normal \<Plug>(agit-diff)"
                 endif
                 if tabpagenr('$') <= tabCount
                     return
@@ -996,7 +996,10 @@ if g:zf_no_plugin!=1
                             \ nnoremap <silent> ;; i<C-R>=g:Vimim_chinese()<CR><Esc>l|
                             \ inoremap <silent> ;; <C-R>=g:Vimim_chinese()<CR>|
                             \ nnoremap <silent> ;: i<C-R>=g:Vimim_onekey()<CR><Esc>l|
-                            \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>
+                            \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>|
+                            \ nunmap n
+                autocmd User VimIMStart nnoremap <silent> n :call g:Vimim_search()<CR>n
+                autocmd User VimIMStop nunmap n
             augroup END
 
             Plug 'ZSaberLv0/VimIM_db'
