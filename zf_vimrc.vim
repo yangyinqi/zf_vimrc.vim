@@ -84,6 +84,8 @@ if 1 " global settings
     let g:zf_exclude_common_dir += [ '_repo' ]
     let g:zf_exclude_common_dir += [ '.idea' , '.gradle' ]
     let g:zf_exclude_common_dir += [ 'build' , '.externalNativeBuild' ]
+    let g:zf_exclude_common_dir += [ 'Pods' ]
+    let g:zf_exclude_common_dir += [ 'vendor' ]
 
     let g:zf_exclude_media = []
     let g:zf_exclude_media += [ '*.ico' , '*.jpg' , '*.jpeg' , '*.png' , '*.bmp' , '*.gif' , '*.webp' , '*.icns' ]
@@ -997,9 +999,9 @@ if g:zf_no_plugin!=1
                             \ inoremap <silent> ;; <C-R>=g:Vimim_chinese()<CR>|
                             \ nnoremap <silent> ;: i<C-R>=g:Vimim_onekey()<CR><Esc>l|
                             \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>|
-                            \ nunmap n
-                autocmd User VimIMStart nnoremap <silent> n :call g:Vimim_search()<CR>n
-                autocmd User VimIMStop nunmap n
+                            \ silent! nunmap n
+                autocmd User VimIMStart silent! nnoremap <silent> n :call g:Vimim_search()<CR>n
+                autocmd User VimIMStop silent! nunmap n
             augroup END
 
             Plug 'ZSaberLv0/VimIM_db'
