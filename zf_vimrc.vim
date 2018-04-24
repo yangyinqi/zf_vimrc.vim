@@ -220,6 +220,7 @@ if g:zf_no_plugin!=1
             Plug 'ZSaberLv0/agit.vim'
             let g:agit_no_default_mappings=1
             let g:agit_ignore_spaces=0
+            let g:agit_stat_width=1024
             function! ZF_Plugin_agit_diffMap(localMode)
                 let tabCount = tabpagenr('$')
                 if a:localMode
