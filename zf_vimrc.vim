@@ -216,7 +216,8 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_agit=1
         endif
         if g:ZF_Plugin_agit==1
-            Plug 'cohama/agit.vim'
+            " Plug 'cohama/agit.vim'
+            Plug 'ZSaberLv0/agit.vim'
             let g:agit_no_default_mappings=1
             let g:agit_ignore_spaces=0
             function! ZF_Plugin_agit_diffMap(localMode)
