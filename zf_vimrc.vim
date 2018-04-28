@@ -241,6 +241,7 @@ if g:zf_no_plugin!=1
                 autocmd!
                 autocmd FileType agit,agit_stat,agit_diff
                             \ nmap <silent><buffer> q <Plug>(agit-exit)|
+                            \ nmap <silent><buffer> p <Plug>(agit-print-commitmsg)|
                             \ nmap <silent><buffer> DD :call ZF_Plugin_agit_diffMap(0)<cr>|
                             \ nmap <silent><buffer> DI :call ZF_Plugin_agit_diffMap(1)<cr>
             augroup END
@@ -1099,6 +1100,8 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_ZFVimFormater==1
             Plug 'ZSaberLv0/ZFVimFormater'
+            Plug 'ZSaberLv0/ZFVimBeautifier'
+            Plug 'ZSaberLv0/ZFVimBeautifierTemplate'
             Plug 'elzr/vim-json'
             Plug 'Chiel92/vim-autoformat'
             Plug 'rhysd/vim-clang-format'
