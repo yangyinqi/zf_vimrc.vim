@@ -1538,7 +1538,7 @@ if 1 " custom key mapping
     endif
     " special select mode mapping
     " some plugin use vmap, which would cause unexpected behavior under select mode
-    if g:zf_fakevim!=1
+    function! ZF_Setting_SelectModeMap()
         let s:_selectmode_keys='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*-_=+\\|;:,./?)]}>'
         for i in range(strlen(s:_selectmode_keys))
             silent! execute 'snoremap <silent> ' . s:_selectmode_keys[i] . ' <c-g>"_c' . s:_selectmode_keys[i]
@@ -1553,6 +1553,14 @@ if 1 " custom key mapping
         silent! snoremap <silent> ' <c-g>"_c''<esc>i
         silent! snoremap <silent> " <c-g>"_c""<esc>i
         silent! snoremap <silent> ` <c-g>"_c``<esc>i
+        silent! snoremap <silent> _ <c-g>"_c_<esc>a
+        silent! snoremap <silent> : <c-g>"_c:<esc>a
+    endfunction
+    if g:zf_fakevim!=1
+        augroup ZF_Setting_SelectModeMap_augroup
+            autocmd!
+            autocmd User ZFVimrcPostNormal call ZF_Setting_SelectModeMap()
+        augroup END
     endif
     " scrolling
     nnoremap <c-h> zh
