@@ -974,16 +974,12 @@ if g:zf_no_plugin!=1
             nnoremap <silent> <leader>vt :TagbarToggle<cr>
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_terminal')
-            let g:ZF_Plugin_terminal=1
+        if !exists('g:ZF_Plugin_ZFVimTerminal')
+            let g:ZF_Plugin_ZFVimTerminal=1
         endif
-        if g:ZF_Plugin_terminal==1
-            Plug 'mattn/vim-terminal'
-            augroup ZF_Plugin_terminal_augroup
-                autocmd!
-                autocmd FileType __TERMINAL__ nnoremap <buffer> q :q<cr>:echo 'Terminal closed'<cr>
-            augroup END
-            nnoremap <silent> <leader>zs :Terminal<cr>
+        if g:ZF_Plugin_ZFVimTerminal==1
+            Plug 'ZSaberLv0/ZFVimTerminal'
+            nnoremap <leader>zs :ZFTerminal<space>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_VimIM')
