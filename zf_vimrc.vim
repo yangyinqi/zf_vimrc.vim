@@ -1753,7 +1753,9 @@ if 1 " custom key mapping
     nnoremap DJ ]czz
     nnoremap DK [czz
     nnoremap DH do
+    xnoremap DH :diffget<cr>
     nnoremap DL dp
+    xnoremap DL :diffput<cr>
     nnoremap DD :diffupdate<cr>
     " quick move lines
     nnoremap C <nop>
