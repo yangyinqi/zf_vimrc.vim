@@ -1031,7 +1031,7 @@ if g:zf_no_plugin!=1
         if !exists('g:ZF_Plugin_youdao_translater')
             let g:ZF_Plugin_youdao_translater=1
         endif
-        if (!has('python') && !has('python3'))
+        if (!has('python') && !has('python3')) || !exists('v:true')
             let g:ZF_Plugin_youdao_translater=0
         endif
         if g:ZF_Plugin_youdao_translater==1
