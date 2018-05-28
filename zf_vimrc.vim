@@ -159,9 +159,19 @@ endif " global settings
 "     vim-plug
 "     git clone --depth=1 --single-branch https://github.com/ZSaberLv0/vim-plug $HOME/.vim/bundle/vim-plug
 if g:zf_no_plugin!=1
-    source $HOME/.vim/bundle/vim-plug/plug.vim
-    let g:plug_url_format='https://github.com/%s'
     let g:plug_home=$HOME . '/.vim/bundle'
+    let g:plug_url_format='https://github.com/%s'
+    let s:plug_file_path=g:plug_home . '/vim-plug/plug.vim'
+    if !filereadable(s:plug_file_path)
+        call system('git clone --depth=1 --single-branch https://github.com/ZSaberLv0/vim-plug "' . g:plug_home . '/vim-plug"')
+        if has('timers')
+            function! ZFVimrcFirstTimeDelay(...)
+                PlugInstall
+            endfunction
+            call timer_start(200, 'ZFVimrcFirstTimeDelay')
+        endif
+    endif
+    execute 'source ' . s:plug_file_path
     call plug#begin()
     " Plug 'junegunn/vim-plug'
     Plug 'ZSaberLv0/vim-plug'
