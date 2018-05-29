@@ -1041,11 +1041,11 @@ if g:zf_no_plugin!=1
         if !exists('g:ZF_Plugin_youdao_translater')
             let g:ZF_Plugin_youdao_translater=1
         endif
-        if (!has('python') && !has('python3')) || !exists('v:true')
+        if (!has('python') && !has('python3'))
             let g:ZF_Plugin_youdao_translater=0
         endif
         if g:ZF_Plugin_youdao_translater==1
-            Plug 'ianva/vim-youdao-translater'
+            Plug 'ianva/vim-youdao-translater', {'tag' : '2.5.1'}
             xnoremap <leader>vy <esc>:Ydv<cr>
             xnoremap <leader>zy <esc>:Ydv<cr>
             nnoremap <leader>vy :Yde<cr>
