@@ -46,6 +46,8 @@ zf_vim_install () {
 
         echo "" >> "$_vimrc"
 
+        echo "\" ========== added by zf_vimrc.vim ==========" >> "$_vimrc"
+
         echo "\" * for Cygwin users, if any weird problem occurred, uncomment one of these:" >> "$_vimrc"
         echo "\"" >> "$_vimrc"
         echo "\"     set shell=cmd.exe" >> "$_vimrc"
@@ -83,6 +85,7 @@ zf_vim_install () {
         echo "" >> "$_vimrc"
 
         echo "source \$HOME/zf_vimrc.vim" >> "$_vimrc"
+        echo "\" ---------- added by zf_vimrc.vim ----------" >> "$_vimrc"
         echo "" >> "$_vimrc"
         echo "" >> "$_vimrc"
     fi
