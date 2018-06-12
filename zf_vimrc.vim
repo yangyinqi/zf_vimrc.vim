@@ -1008,7 +1008,7 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_VimIM==1
             " Plug 'vim-scripts/VimIM'
             Plug 'ZSaberLv0/VimIM'
-            let g:Vimim_map='no-gi'
+            let g:Vimim_map='no-gi,no-search'
             let g:Vimim_punctuation=0
             let g:Vimim_toggle='pinyin,baidu'
             augroup ZF_Plugin_VimIM_augroup
@@ -1017,10 +1017,7 @@ if g:zf_no_plugin!=1
                             \ nnoremap <silent> ;; i<C-R>=g:Vimim_chinese()<CR><Esc>l|
                             \ inoremap <silent> ;; <C-R>=g:Vimim_chinese()<CR>|
                             \ nnoremap <silent> ;: i<C-R>=g:Vimim_onekey()<CR><Esc>l|
-                            \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>|
-                            \ silent! nunmap n
-                autocmd User VimIMStart silent! nnoremap <silent> n :call g:Vimim_search()<CR>n
-                autocmd User VimIMStop silent! nunmap n
+                            \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>
             augroup END
 
             Plug 'ZSaberLv0/VimIM_db'
