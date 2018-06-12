@@ -901,6 +901,16 @@ if g:zf_no_plugin!=1
             Plug 'ZSaberLv0/nerdtree_menu_util'
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_searchindex')
+            let g:ZF_Plugin_searchindex=1
+        endif
+        if g:ZF_Plugin_searchindex==1
+            Plug 'google/vim-searchindex'
+            let g:searchindex_improved_star=0
+            nmap n ng/
+            nmap N Ng/
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_ShowTrailingWhitespace')
             let g:ZF_Plugin_ShowTrailingWhitespace=1
         endif
@@ -1049,7 +1059,7 @@ if g:zf_no_plugin!=1
             xnoremap <leader>vy <esc>:Ydv<cr>
             xnoremap <leader>zy <esc>:Ydv<cr>
             nnoremap <leader>vy :Yde<cr>
-            nnoremap <leader>zy :Yde<cr><c-r>=expand('<cword>')<cr>
+            nnoremap <leader>zy :Yde<cr><c-r>=expand('<cword>')<cr><cr>
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimCmdMenu')
