@@ -42,8 +42,6 @@ zf_vim_install () {
     grep -wq "zf_vimrc.vim" "$_vimrc" >/dev/null 2>&1 && _exist=1 || _exist=0
 
     if test "x$_exist" = "x0"; then
-        mkdir -p "${_vimrc%[/\\]*}" >/dev/null 2>&1
-
         echo "" >> "$_vimrc"
 
         echo "\" ========== added by zf_vimrc.vim ==========" >> "$_vimrc"
