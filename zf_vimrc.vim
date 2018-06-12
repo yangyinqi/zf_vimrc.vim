@@ -907,8 +907,6 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_searchindex==1
             Plug 'google/vim-searchindex'
             let g:searchindex_improved_star=0
-            nmap n ng/
-            nmap N Ng/
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ShowTrailingWhitespace')
