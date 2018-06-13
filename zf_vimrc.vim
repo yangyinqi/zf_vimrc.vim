@@ -1442,20 +1442,11 @@ if g:zf_no_plugin!=1
             command! -nargs=0 TOCUpdate :UpdateToc
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_ZFVimMarkdownToc')
-            let g:ZF_Plugin_ZFVimMarkdownToc=1
+        if !exists('g:ZF_Plugin_ZFVimToc')
+            let g:ZF_Plugin_ZFVimToc=1
         endif
-        if g:ZF_Plugin_ZFVimMarkdownToc==1
-            Plug 'ZSaberLv0/ZFVimMarkdownToc'
-            augroup ZF_Plugin_ZFVimMarkdownToc_augroup
-                autocmd!
-                autocmd FileType markdown
-                            \ nnoremap <buffer> [[ :call ZF_MarkdownTitlePrev('n')<cr>|
-                            \ xnoremap <buffer> [[ :call ZF_MarkdownTitlePrev('v')<cr>|
-                            \ nnoremap <buffer> ]] :call ZF_MarkdownTitleNext('n')<cr>|
-                            \ xnoremap <buffer> ]] :call ZF_MarkdownTitleNext('v')<cr>|
-                            \ nnoremap <buffer> <leader>vt :call ZF_MarkdownToc()<cr>
-            augroup END
+        if g:ZF_Plugin_ZFVimToc==1
+            Plug 'ZSaberLv0/ZFVimToc'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_fenced_code_blocks')
