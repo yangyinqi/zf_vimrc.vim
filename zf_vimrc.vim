@@ -821,8 +821,10 @@ if g:zf_no_plugin!=1
                             \     call matchup#matchparen#toggle()|
                             \ endif
             augroup END
-            let g:matchup_matchparen_enabled=1
             let g:matchup_matchparen_status_offscreen=0
+            let g:matchup_mappings_enabled=0
+            nmap % <plug>(matchup-%)
+            xmap % <plug>(matchup-%)
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_nerdtree')
@@ -907,6 +909,15 @@ if g:zf_no_plugin!=1
         if g:ZF_Plugin_searchindex==1
             Plug 'google/vim-searchindex'
             let g:searchindex_improved_star=0
+            augroup ZF_Plugin_searchindex_augroup
+                autocmd!
+                autocmd User ZFVimLowPerf,ZFVimrcPostLow
+                            \ if g:zf_low_performance|
+                            \     let g:searchindex_line_limit=1000|
+                            \ else|
+                            \     let g:searchindex_line_limit=1000000|
+                            \ endif
+            augroup END
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ShowTrailingWhitespace')
