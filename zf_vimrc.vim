@@ -1465,6 +1465,13 @@ if g:zf_no_plugin!=1
             Plug 'amiorin/vim-fenced-code-blocks'
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_phpcomplete')
+            let g:ZF_Plugin_phpcomplete=1
+        endif
+        if g:ZF_Plugin_phpcomplete==1
+            Plug 'shawncplus/phpcomplete.vim'
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_php_namespace')
             let g:ZF_Plugin_php_namespace=1
         endif
