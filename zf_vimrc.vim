@@ -1475,15 +1475,6 @@ if g:zf_no_plugin!=1
             nnoremap <leader>cphpe :call PhpExpandClass()<cr>
         endif
         " ==================================================
-        if !exists('g:ZF_Plugin_PIV')
-            let g:ZF_Plugin_PIV=1
-        endif
-        if g:ZF_Plugin_PIV==1
-            Plug 'spf13/PIV'
-            let g:PIVCreateDefaultMappings=0
-            let g:DisableAutoPHPFolding=1
-        endif
-        " ==================================================
         if !exists('g:ZF_Plugin_xmledit')
             let g:ZF_Plugin_xmledit=1
         endif
