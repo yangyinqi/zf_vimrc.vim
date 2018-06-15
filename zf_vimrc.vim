@@ -1006,6 +1006,9 @@ if g:zf_no_plugin!=1
         if !exists('g:ZF_Plugin_ultisnips')
             let g:ZF_Plugin_ultisnips=1
         endif
+        if (!has('python') && !has('python3'))
+            let g:ZF_Plugin_ultisnips=0
+        endif
         if g:ZF_Plugin_ultisnips==1
             Plug 'SirVer/ultisnips'
             let g:UltiSnipsExpandTrigger = "<c-o>"
