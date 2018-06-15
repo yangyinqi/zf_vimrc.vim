@@ -1003,6 +1003,17 @@ if g:zf_no_plugin!=1
             nnoremap <silent> <leader>vt :TagbarToggle<cr>
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_ultisnips')
+            let g:ZF_Plugin_ultisnips=1
+        endif
+        if g:ZF_Plugin_ultisnips==1
+            Plug 'SirVer/ultisnips'
+            let g:UltiSnipsExpandTrigger = "<c-o>"
+            let g:UltiSnipsJumpForwardTrigger = "<c-f>"
+            let g:UltiSnipsJumpBackwardTrigger = "<c-d>"
+            let g:UltiSnipsRemoveSelectModeMappings = 0
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_ZFVimTerminal')
             let g:ZF_Plugin_ZFVimTerminal=1
         endif
