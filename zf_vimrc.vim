@@ -1013,6 +1013,18 @@ if g:zf_no_plugin!=1
             let g:UltiSnipsJumpBackwardTrigger = "<c-d>"
             let g:UltiSnipsRemoveSelectModeMappings = 0
         endif
+        if !exists('g:ZF_Plugin_ZF_ultisnips')
+            let g:ZF_Plugin_ZF_ultisnips=g:ZF_Plugin_ultisnips
+        endif
+        if g:ZF_Plugin_ZF_ultisnips==1
+            Plug 'ZSaberLv0/ZF_ultisnips'
+            function! ZF_Plugin_ZFSnipsEdit(...)
+                let ft = get(a:, 1, &filetype)
+                let path = g:plug_home . '/ZF_ultisnips/UltiSnips/' . ft . '.snippets'
+                execute 'edit ' . path
+            endfunction
+            command! -nargs=? ZFSnipsEdit :call ZF_Plugin_ZFSnipsEdit(<f-args>)
+        endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimTerminal')
             let g:ZF_Plugin_ZFVimTerminal=1
