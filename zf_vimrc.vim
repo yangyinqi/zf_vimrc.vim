@@ -1020,6 +1020,9 @@ if g:zf_no_plugin!=1
             Plug 'ZSaberLv0/ZF_ultisnips'
             function! ZF_Plugin_ZFSnipsEdit(...)
                 let ft = get(a:, 1, &filetype)
+                if empty(ft)
+                    let ft='all'
+                endif
                 let path = g:plug_home . '/ZF_ultisnips/UltiSnips/' . ft . '.snippets'
                 execute 'edit ' . path
             endfunction
