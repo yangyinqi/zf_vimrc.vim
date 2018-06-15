@@ -1011,6 +1011,7 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_ultisnips==1
             Plug 'SirVer/ultisnips'
+            let g:UltiSnipsListSnippets = "<c-f>"
             let g:UltiSnipsExpandTrigger = "<c-o>"
             let g:UltiSnipsJumpForwardTrigger = "<c-o>"
             let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
