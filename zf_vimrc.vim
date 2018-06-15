@@ -1286,8 +1286,8 @@ if g:zf_no_plugin!=1
             let g:ycm_collect_identifiers_from_comments_and_strings=1
             let g:ycm_confirm_extra_conf=0
             let g:ycm_key_invoke_completion = '<c-x><c-u>'
-            let g:ycm_key_list_select_completion = ['<Down>']
-            let g:ycm_key_list_previous_completion = ['<Up>']
+            let g:ycm_key_list_select_completion = ['<Down>', '<c-j>']
+            let g:ycm_key_list_previous_completion = ['<Up>', '<c-k>']
             let g:ycm_semantic_triggers = {
                         \     'c,cpp,objcpp' : 're![a-zA-Z_]',
                         \ }
