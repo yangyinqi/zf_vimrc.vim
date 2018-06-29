@@ -347,6 +347,14 @@ if g:zf_no_plugin!=1
             Plug 'vim-scripts/CmdlineComplete'
         endif
         " ==================================================
+        if !exists('g:ZF_Plugin_colorizer')
+            let g:ZF_Plugin_colorizer=1
+        endif
+        if g:ZF_Plugin_colorizer==1
+            Plug 'lilydjwg/colorizer'
+            let g:colorizer_maxlines=3000
+        endif
+        " ==================================================
         if !exists('g:ZF_Plugin_dirdiff')
             let g:ZF_Plugin_dirdiff=1
         endif
