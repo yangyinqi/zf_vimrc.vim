@@ -1019,10 +1019,10 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_ultisnips==1
             Plug 'SirVer/ultisnips'
-            let g:UltiSnipsListSnippets = "<c-d>"
-            let g:UltiSnipsExpandTrigger = "<c-o>"
+            let g:UltiSnipsListSnippets = "<c-o>"
             let g:UltiSnipsJumpForwardTrigger = "<c-o>"
             let g:UltiSnipsJumpBackwardTrigger = "<c-u>"
+            let g:UltiSnipsAutoApplyForSingleCandidate = 1
             let g:UltiSnipsRemoveSelectModeMappings = 0
         endif
         if !exists('g:ZF_Plugin_ZF_ultisnips')
