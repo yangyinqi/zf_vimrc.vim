@@ -1019,7 +1019,7 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_ultisnips==1
             Plug 'SirVer/ultisnips'
-            let g:UltiSnipsListSnippets = "<c-o>"
+            let g:UltiSnipsExpandTrigger = "<c-o>"
             let g:UltiSnipsJumpForwardTrigger = "<c-o>"
             let g:UltiSnipsJumpBackwardTrigger = "<c-u>"
             let g:UltiSnipsAutoApplyForSingleCandidate = 1
@@ -2332,11 +2332,13 @@ augroup ZF_VimrcPost_augroup
         doautocmd User ZFVimrcPostLow
         doautocmd User ZFVimrcPostNormal
         doautocmd User ZFVimrcPostHigh
+        doautocmd User ZFVimLowPerf
     else
         autocmd VimEnter *
                     \ doautocmd User ZFVimrcPostLow|
                     \ doautocmd User ZFVimrcPostNormal|
-                    \ doautocmd User ZFVimrcPostHigh
+                    \ doautocmd User ZFVimrcPostHigh|
+                    \ doautocmd User ZFVimLowPerf
     endif
 augroup END
 
