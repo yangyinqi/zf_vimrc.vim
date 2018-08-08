@@ -1743,7 +1743,7 @@ if 1 " custom key mapping
     xnoremap P "_dgp
     function! ZF_Setting_VisualPaste()
         normal! gv
-        if mode() != ""
+        if mode() != "\x16" " <c-v>
             if has('clipboard')
                 normal! "_d"*gP
             else
