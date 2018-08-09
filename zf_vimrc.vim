@@ -1755,7 +1755,13 @@ if 1 " custom key mapping
     xnoremap <c-g> <esc>:call ZF_Setting_VisualPaste()<cr>
     if has('clipboard')
         inoremap <c-g> <c-r>*
-        cnoremap <c-g> <c-r>*
+        " paste as user typed
+        " to ensure the command would exist in command history
+        function! ZF_Setting_command_paste()
+            call feedkeys("\<c-r>*", 't')
+            return ''
+        endfunction
+        cnoremap <expr> <c-g> '' . ZF_Setting_command_paste()
         snoremap <c-g> <c-o>"_d"*gP
     else
         if g:zf_fakevim!=1
