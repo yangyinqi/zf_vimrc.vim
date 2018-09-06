@@ -159,22 +159,41 @@ endif " global settings
 "     vim-plug
 "     git clone --depth=1 --single-branch https://github.com/ZSaberLv0/vim-plug $HOME/.vim/bundle/vim-plug
 if g:zf_no_plugin!=1
+    " ==================================================
+    " plug setting
     let g:plug_home=$HOME . '/.vim/bundle'
     let g:plug_url_format='https://github.com/%s'
     let s:plug_file_path=g:plug_home . '/vim-plug/plug.vim'
+
+    " ==================================================
+    " plug auto install
+    let g:zfplug_needupdate=0
+    function! s:Plug(repo, ...)
+        if a:0 > 0
+            Plug a:repo, a:1
+        else
+            Plug a:repo
+        endif
+        let repoName = substitute(a:repo, '^.*[\\\/]', '', 'g')
+        if !isdirectory(g:plug_home . '/' . repoName)
+            let g:zfplug_needupdate=1
+        endif
+    endfunction
+    command! -nargs=+ -bar ZFPlug call s:Plug(<args>)
+    function! s:PlugCheck()
+        if g:zfplug_needupdate
+            let g:zfplug_needupdate=0
+            PlugInstall
+        endif
+    endfunction
+
     if !filereadable(s:plug_file_path)
         call system('git clone --depth=1 --single-branch https://github.com/ZSaberLv0/vim-plug "' . g:plug_home . '/vim-plug"')
-        if has('timers')
-            function! ZFVimrcFirstTimeDelay(...)
-                PlugInstall
-            endfunction
-            call timer_start(200, 'ZFVimrcFirstTimeDelay')
-        endif
     endif
     execute 'source ' . s:plug_file_path
     call plug#begin()
-    " Plug 'junegunn/vim-plug'
-    Plug 'ZSaberLv0/vim-plug'
+    " ZFPlug 'junegunn/vim-plug'
+    ZFPlug 'ZSaberLv0/vim-plug'
 
     " ==================================================
     if 1 " themes
@@ -193,7 +212,7 @@ if g:zf_no_plugin!=1
         endif
 
         if !empty('g:zf_color_plugin_default')
-            Plug g:zf_color_plugin_default
+            ZFPlug g:zf_color_plugin_default
             let xterm16_brightness='high'
             let xterm16_colormap='soft'
         endif
@@ -215,7 +234,7 @@ if g:zf_no_plugin!=1
             set t_Co=256
         endif
         if g:zf_color_plugin_256 != '' && g:zf_color_plugin_256 != g:zf_color_plugin_default
-            Plug g:zf_color_plugin_256
+            ZFPlug g:zf_color_plugin_256
         endif
     endif " themes
 
@@ -226,8 +245,8 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_agit=1
         endif
         if g:ZF_Plugin_agit==1
-            " Plug 'cohama/agit.vim'
-            Plug 'ZSaberLv0/agit.vim'
+            " ZFPlug 'cohama/agit.vim'
+            ZFPlug 'ZSaberLv0/agit.vim'
             let g:agit_no_default_mappings=1
             let g:agit_ignore_spaces=0
             let g:agit_stat_width=1024
@@ -261,7 +280,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_asyncrun=1
         endif
         if g:ZF_Plugin_asyncrun==1
-            Plug 'skywind3000/asyncrun.vim'
+            ZFPlug 'skywind3000/asyncrun.vim'
         endif
         nnoremap <leader>va :AsyncRun<space>
         let g:asyncrun_exit='echo "AsyncRun " . g:asyncrun_status . "(" . g:asyncrun_code'
@@ -271,14 +290,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_auto_mkdir=1
         endif
         if g:ZF_Plugin_auto_mkdir==1
-            Plug 'DataWraith/auto_mkdir'
+            ZFPlug 'DataWraith/auto_mkdir'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_auto_pairs')
             let g:ZF_Plugin_auto_pairs=1
         endif
         if g:ZF_Plugin_auto_pairs==1
-            Plug 'jiangmiao/auto-pairs'
+            ZFPlug 'jiangmiao/auto-pairs'
             let g:AutoPairsShortcurToggle=''
             let g:AutoPairsShortcutFastWrap=''
             let g:AutoPairsShortcutJump=''
@@ -298,7 +317,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_BufOnly=1
         endif
         if g:ZF_Plugin_BufOnly==1
-            Plug 'vim-scripts/BufOnly.vim'
+            ZFPlug 'vim-scripts/BufOnly.vim'
             nnoremap X :BufOnly<cr>
         endif
         " ==================================================
@@ -306,7 +325,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_buftabline=1
         endif
         if g:ZF_Plugin_buftabline==1
-            Plug 'ap/vim-buftabline'
+            ZFPlug 'ap/vim-buftabline'
             let g:buftabline_numbers=1
             let g:buftabline_indicators=1
             augroup ZF_Plugin_buftabline_augroup
@@ -323,7 +342,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_clever_f=1
         endif
         if g:ZF_Plugin_clever_f==1
-            Plug 'rhysd/clever-f.vim'
+            ZFPlug 'rhysd/clever-f.vim'
             let g:clever_f_not_overwrites_standard_mappings=1
             let g:clever_f_across_no_line=1
             let g:clever_f_smart_case=1
@@ -344,14 +363,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_CmdlineComplete=1
         endif
         if g:ZF_Plugin_CmdlineComplete==1
-            Plug 'vim-scripts/CmdlineComplete'
+            ZFPlug 'vim-scripts/CmdlineComplete'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_colorizer')
             let g:ZF_Plugin_colorizer=1
         endif
         if g:ZF_Plugin_colorizer==1
-            Plug 'lilydjwg/colorizer'
+            ZFPlug 'lilydjwg/colorizer'
             let g:colorizer_maxlines=3000
         endif
         " ==================================================
@@ -359,7 +378,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_dirdiff=1
         endif
         if g:ZF_Plugin_dirdiff==1
-            Plug 'will133/vim-dirdiff'
+            ZFPlug 'will133/vim-dirdiff'
             let g:DirDiffEnableMappings=0
             function! ZF_Plugin_dirdiff_updateIgnore()
                 let tmp = []
@@ -404,7 +423,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_easy_align=1
         endif
         if g:ZF_Plugin_easy_align==1
-            Plug 'junegunn/vim-easy-align'
+            ZFPlug 'junegunn/vim-easy-align'
             let g:easy_align_ignore_groups=[]
             function! ZF_Plugin_EasyAlign_regexFix(param)
                 let param = substitute(a:param, '/', '_zf_slash_', 'g')
@@ -435,7 +454,7 @@ if g:zf_no_plugin!=1
         endif
         if g:ZF_Plugin_easygrep==1
             set grepprg=grep\ -n\ $*\ /dev/null
-            Plug 'dkprice/vim-easygrep'
+            ZFPlug 'dkprice/vim-easygrep'
             let g:EasyGrepRecursive=1
             let g:EasyGrepAllOptionsInExplorer=1
             let g:EasyGrepCommand=1
@@ -551,7 +570,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_easymotion=1
         endif
         if g:ZF_Plugin_easymotion==1
-            Plug 'easymotion/vim-easymotion'
+            ZFPlug 'easymotion/vim-easymotion'
             let g:EasyMotion_do_mapping=0
             let g:EasyMotion_smartcase=1
             let g:EasyMotion_use_upper=1
@@ -581,7 +600,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_eregex=1
         endif
         if g:ZF_Plugin_eregex==1
-            Plug 'othree/eregex.vim'
+            ZFPlug 'othree/eregex.vim'
             let g:eregex_default_enable=0
             function! ZF_Plugin_eregex_sort(bang, line1, line2, args)
                 let cmd = a:line1 . ',' . a:line2 . 'sort' . a:bang . ' '
@@ -616,7 +635,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_expand_region=1
         endif
         if g:ZF_Plugin_expand_region==1
-            Plug 'terryma/vim-expand-region'
+            ZFPlug 'terryma/vim-expand-region'
             augroup ZF_Plugin_expand_region_augroup
                 autocmd!
                 autocmd User ZFVimrcPostNormal
@@ -634,7 +653,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_fontsize=1
         endif
         if g:ZF_Plugin_fontsize==1
-            Plug 'drmikehenry/vim-fontsize'
+            ZFPlug 'drmikehenry/vim-fontsize'
             nmap + <plug>FontsizeInc
             nmap - <plug>FontsizeDec
             nmap -= <plug>FontsizeDefault
@@ -644,8 +663,8 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_incsearch=1
         endif
         if g:ZF_Plugin_incsearch==1
-            Plug 'haya14busa/incsearch.vim'
-            Plug 'haya14busa/incsearch-fuzzy.vim'
+            ZFPlug 'haya14busa/incsearch.vim'
+            ZFPlug 'haya14busa/incsearch-fuzzy.vim'
             function! ZF_Plugin_incsearch_setting()
                 if !exists('g:loaded_incsearch_fuzzy')
                     return
@@ -685,7 +704,7 @@ if g:zf_no_plugin!=1
             endif
         endif
         if g:ZF_Plugin_LeaderF==1
-            Plug 'Yggdroot/LeaderF'
+            ZFPlug 'Yggdroot/LeaderF'
             let g:Lf_ShortcutF = '<c-o>'
             let g:Lf_CursorBlink = 0
             let g:Lf_CacheDirectory = $HOME.'/.vim_cache/leaderf'
@@ -722,7 +741,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ctrlp=0
         endif
         if g:ZF_Plugin_ctrlp==1
-            Plug 'ctrlpvim/ctrlp.vim'
+            ZFPlug 'ctrlpvim/ctrlp.vim'
             let g:ctrlp_by_filename = 1
             let g:ctrlp_regexp = 1
             let g:ctrlp_working_path_mode = ''
@@ -761,7 +780,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_linediff=1
         endif
         if g:ZF_Plugin_linediff==1
-            Plug 'AndrewRadev/linediff.vim'
+            ZFPlug 'AndrewRadev/linediff.vim'
             let g:linediff_first_buffer_command='new'
             let g:linediff_second_buffer_command='vertical new'
 
@@ -821,7 +840,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_matchup=1
         endif
         if g:ZF_Plugin_matchup==1
-            Plug 'andymass/vim-matchup'
+            ZFPlug 'andymass/vim-matchup'
             augroup ZF_Plugin_matchup_augroup
                 autocmd!
                 autocmd User ZFVimLowPerf,ZFVimrcPostLow
@@ -839,7 +858,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_nerdtree=1
         endif
         if g:ZF_Plugin_nerdtree==1
-            Plug 'scrooloose/nerdtree'
+            ZFPlug 'scrooloose/nerdtree'
             let NERDTreeSortHiddenFirst=1
             let NERDTreeQuitOnOpen=1
             let NERDTreeShowHidden=1
@@ -902,20 +921,20 @@ if g:zf_no_plugin!=1
             let g:NERDTreeMapUpdirKeepOpen=''
             let g:NERDTreeMapCWD='CD'
 
-            Plug 'jistr/vim-nerdtree-tabs'
+            ZFPlug 'jistr/vim-nerdtree-tabs'
             let g:nerdtree_tabs_startup_cd=0
             let g:nerdtree_tabs_open_on_gui_startup=0
             let g:nerdtree_tabs_open_on_console_startup=0
             let g:nerdtree_tabs_no_startup_for_diff=1
 
-            Plug 'ZSaberLv0/nerdtree_menu_util'
+            ZFPlug 'ZSaberLv0/nerdtree_menu_util'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_searchindex')
             let g:ZF_Plugin_searchindex=1
         endif
         if g:ZF_Plugin_searchindex==1
-            Plug 'google/vim-searchindex'
+            ZFPlug 'google/vim-searchindex'
             let g:searchindex_improved_star=0
             augroup ZF_Plugin_searchindex_augroup
                 autocmd!
@@ -932,21 +951,21 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ShowTrailingWhitespace=1
         endif
         if g:ZF_Plugin_ShowTrailingWhitespace==1
-            Plug 'vim-scripts/ShowTrailingWhitespace'
+            ZFPlug 'vim-scripts/ShowTrailingWhitespace'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_signature')
             let g:ZF_Plugin_signature=1
         endif
         if g:ZF_Plugin_signature==1
-            Plug 'kshenoy/vim-signature'
+            ZFPlug 'kshenoy/vim-signature'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_supertab')
             let g:ZF_Plugin_supertab=1
         endif
         if g:ZF_Plugin_supertab==1
-            Plug 'ervandew/supertab'
+            ZFPlug 'ervandew/supertab'
             let g:SuperTabDefaultCompletionType='context'
             let g:SuperTabContextDefaultCompletionType='<c-p>'
             let g:SuperTabCompletionContexts=['s:ContextText', 's:ContextDiscover']
@@ -972,7 +991,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_surround=1
         endif
         if g:ZF_Plugin_surround==1
-            Plug 'tpope/vim-surround'
+            ZFPlug 'tpope/vim-surround'
             let g:surround_no_mappings=1
             let g:surround_no_insert_mappings=1
             augroup ZF_Plugin_surround_augroup
@@ -991,7 +1010,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_tagbar=1
         endif
         if g:ZF_Plugin_tagbar==1
-            Plug 'majutsushi/tagbar'
+            ZFPlug 'majutsushi/tagbar'
             let g:tagbar_width=80
             let g:tagbar_autoclose=1
             let g:tagbar_autofocus=1
@@ -1018,7 +1037,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ultisnips=0
         endif
         if g:ZF_Plugin_ultisnips==1
-            Plug 'SirVer/ultisnips'
+            ZFPlug 'SirVer/ultisnips'
             let g:UltiSnipsExpandTrigger = "<c-o>"
             let g:UltiSnipsJumpForwardTrigger = "<c-o>"
             let g:UltiSnipsJumpBackwardTrigger = "<c-u>"
@@ -1029,7 +1048,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZF_ultisnips=g:ZF_Plugin_ultisnips
         endif
         if g:ZF_Plugin_ZF_ultisnips==1
-            Plug 'ZSaberLv0/ZF_ultisnips'
+            ZFPlug 'ZSaberLv0/ZF_ultisnips'
             function! ZF_Plugin_ZFSnipsEdit(...)
                 let ft = get(a:, 1, &filetype)
                 if empty(ft)
@@ -1045,7 +1064,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimTerminal=1
         endif
         if g:ZF_Plugin_ZFVimTerminal==1
-            Plug 'ZSaberLv0/ZFVimTerminal'
+            ZFPlug 'ZSaberLv0/ZFVimTerminal'
             nnoremap <leader>zs :ZFTerminal<space>
         endif
         " ==================================================
@@ -1053,8 +1072,8 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_VimIM=1
         endif
         if g:ZF_Plugin_VimIM==1
-            " Plug 'vim-scripts/VimIM'
-            Plug 'ZSaberLv0/VimIM'
+            " ZFPlug 'vim-scripts/VimIM'
+            ZFPlug 'ZSaberLv0/VimIM'
             let g:Vimim_map='no-gi,no-search'
             let g:Vimim_punctuation=0
             let g:Vimim_toggle='pinyin,baidu'
@@ -1067,8 +1086,8 @@ if g:zf_no_plugin!=1
                             \ inoremap <silent> ;: <C-R>=g:Vimim_onekey()<CR>
             augroup END
 
-            Plug 'ZSaberLv0/VimIM_db'
-            Plug 'ZSaberLv0/VimIMSync'
+            ZFPlug 'ZSaberLv0/VimIM_db'
+            ZFPlug 'ZSaberLv0/VimIMSync'
             let g:VimIMSync_repo_head='https://'
             let g:VimIMSync_repo_tail='github.com/ZSaberLv0/VimIM_db'
             let g:VimIMSync_user='ZSaberLv0'
@@ -1099,7 +1118,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_youdao_translater=0
         endif
         if g:ZF_Plugin_youdao_translater==1
-            Plug 'ianva/vim-youdao-translater', {'tag' : '2.5.1'}
+            ZFPlug 'ianva/vim-youdao-translater', {'tag' : '2.5.1'}
             xnoremap <leader>vy <esc>:Ydv<cr>
             xnoremap <leader>zy <esc>:Ydv<cr>
             nnoremap <leader>vy :Yde<cr>
@@ -1110,14 +1129,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimCmdMenu=1
         endif
         if g:ZF_Plugin_ZFVimCmdMenu==1
-            Plug 'ZSaberLv0/ZFVimCmdMenu'
+            ZFPlug 'ZSaberLv0/ZFVimCmdMenu'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimEscape')
             let g:ZF_Plugin_ZFVimEscape=1
         endif
         if g:ZF_Plugin_ZFVimEscape==1
-            Plug 'ZSaberLv0/ZFVimEscape'
+            ZFPlug 'ZSaberLv0/ZFVimEscape'
             xnoremap <leader>ce <esc>:call ZF_VimEscape('v')<cr>
             nnoremap <leader>ce :call ZF_VimEscape()<cr>
         endif
@@ -1126,14 +1145,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimExpand=1
         endif
         if g:ZF_Plugin_ZFVimExpand==1
-            Plug 'ZSaberLv0/ZFVimExpand'
+            ZFPlug 'ZSaberLv0/ZFVimExpand'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimFoldBlock')
             let g:ZF_Plugin_ZFVimFoldBlock=1
         endif
         if g:ZF_Plugin_ZFVimFoldBlock==1
-            Plug 'ZSaberLv0/ZFVimFoldBlock'
+            ZFPlug 'ZSaberLv0/ZFVimFoldBlock'
             nnoremap ZB q::call ZF_FoldBlockTemplate()<cr>
             nnoremap ZF :ZFFoldBlock //<left>
             function! ZF_Plugin_ZFVimFoldBlock_comment()
@@ -1160,12 +1179,12 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimFormater=1
         endif
         if g:ZF_Plugin_ZFVimFormater==1
-            Plug 'ZSaberLv0/ZFVimFormater'
-            Plug 'ZSaberLv0/ZFVimBeautifier'
-            Plug 'ZSaberLv0/ZFVimBeautifierTemplate'
-            Plug 'elzr/vim-json'
-            Plug 'Chiel92/vim-autoformat'
-            Plug 'rhysd/vim-clang-format'
+            ZFPlug 'ZSaberLv0/ZFVimFormater'
+            ZFPlug 'ZSaberLv0/ZFVimBeautifier'
+            ZFPlug 'ZSaberLv0/ZFVimBeautifierTemplate'
+            ZFPlug 'elzr/vim-json'
+            ZFPlug 'Chiel92/vim-autoformat'
+            ZFPlug 'rhysd/vim-clang-format'
             let g:vim_json_syntax_conceal=0
             nnoremap <leader>cf :call ZF_Formater()<cr>
             " recommended format tools (require python pip)
@@ -1182,26 +1201,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimIndentMove=1
         endif
         if g:ZF_Plugin_ZFVimIndentMove==1
-            Plug 'ZSaberLv0/ZFVimIndentMove'
-            nnoremap E <nop>
-            nnoremap EE ``
-            nnoremap EH :call ZF_IndentMoveParent('n')<cr>
-            xnoremap EH :<c-u>call ZF_IndentMoveParent('v')<cr>
-            nnoremap EL :call ZF_IndentMoveParentEnd('n')<cr>
-            xnoremap EL :<c-u>call ZF_IndentMoveParentEnd('v')<cr>
-            nnoremap EK :call ZF_IndentMovePrev('n')<cr>
-            xnoremap EK :<c-u>call ZF_IndentMovePrev('v')<cr>
-            nnoremap EJ :call ZF_IndentMoveNext('n')<cr>
-            xnoremap EJ :<c-u>call ZF_IndentMoveNext('v')<cr>
-            nnoremap EI :call ZF_IndentMoveChild('n')<cr>
-            xnoremap EI :<c-u>call ZF_IndentMoveChild('v')<cr>
+            ZFPlug 'ZSaberLv0/ZFVimIndentMove'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_ZFVimTxtHighlight')
             let g:ZF_Plugin_ZFVimTxtHighlight=1
         endif
         if g:ZF_Plugin_ZFVimTxtHighlight==1
-            Plug 'ZSaberLv0/ZFVimTxtHighlight'
+            ZFPlug 'ZSaberLv0/ZFVimTxtHighlight'
             nnoremap <leader>cth :call ZF_VimTxtHighlightToggle()<cr>
         endif
         " ==================================================
@@ -1209,7 +1216,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimrcUtil=1
         endif
         if g:ZF_Plugin_ZFVimrcUtil==1
-            Plug 'ZSaberLv0/ZFVimrcUtil'
+            ZFPlug 'ZSaberLv0/ZFVimrcUtil'
             nnoremap <leader>vimrc :call ZF_VimrcEdit()<cr>
             nnoremap <leader>vimrt :call ZF_VimrcEditOrg()<cr>
             nnoremap <leader>vimclean :call ZF_VimClean()<cr>
@@ -1222,7 +1229,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimTagSetting=1
         endif
         if g:ZF_Plugin_ZFVimTagSetting==1
-            Plug 'ZSaberLv0/ZFVimTagSetting'
+            ZFPlug 'ZSaberLv0/ZFVimTagSetting'
             nnoremap <leader>ctagl :call ZF_TagsFileLocal()<cr>
             nnoremap <leader>ctagg :call ZF_TagsFileGlobal()<cr>
             nnoremap <leader>ctaga :call ZF_TagsFileGlobalAdd()<cr>
@@ -1234,7 +1241,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimUtil=1
         endif
         if g:ZF_Plugin_ZFVimUtil==1
-            Plug 'ZSaberLv0/ZFVimUtil'
+            ZFPlug 'ZSaberLv0/ZFVimUtil'
             nnoremap <leader>vs :ZFExecShell<space>
             nnoremap <leader>vc :ZFExecCmd<space>
             nnoremap <leader>calc :ZFCalc<space>
@@ -1262,14 +1269,14 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_a=1
         endif
         if g:ZF_Plugin_a==1
-            Plug 'taxilian/a.vim'
+            ZFPlug 'taxilian/a.vim'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_caw')
             let g:ZF_Plugin_caw=1
         endif
         if g:ZF_Plugin_caw==1
-            Plug 'tyru/caw.vim'
+            ZFPlug 'tyru/caw.vim'
             let g:caw_no_default_keymappings = 1
             nmap CC <Plug>(caw:hatpos:toggle)
             xmap CC <Plug>(caw:hatpos:toggle)
@@ -1283,7 +1290,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_syntastic=1
         endif
         if g:ZF_Plugin_syntastic==1
-            Plug 'vim-syntastic/syntastic'
+            ZFPlug 'vim-syntastic/syntastic'
             if exists('*SyntasticStatuslineFlag')
                 set statusline-=%#warningmsg#
                 set statusline+=%#warningmsg#
@@ -1307,7 +1314,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_polyglot=1
         endif
         if g:ZF_Plugin_polyglot==1
-            Plug 'sheerun/vim-polyglot'
+            ZFPlug 'sheerun/vim-polyglot'
             let g:polyglot_disabled = ['markdown']
         endif
         " ==================================================
@@ -1318,7 +1325,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_YouCompleteMe=0
         endif
         if g:ZF_Plugin_YouCompleteMe==1
-            Plug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer'}
+            ZFPlug 'Valloric/YouCompleteMe', {'do' : './install.py --clang-completer'}
             let g:ycm_complete_in_comments=1
             let g:ycm_complete_in_strings=1
             let g:ycm_collect_identifiers_from_comments_and_strings=1
@@ -1336,10 +1343,10 @@ if g:zf_no_plugin!=1
                             \ nnoremap zk <c-o>
             augroup END
 
-            Plug 'ZSaberLv0/ycm_conf_default'
+            ZFPlug 'ZSaberLv0/ycm_conf_default'
             let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/ycm_conf_default/ycm_extra_conf.py'
 
-            Plug 'tenfyzhong/CompleteParameter.vim'
+            ZFPlug 'tenfyzhong/CompleteParameter.vim'
             function! ZF_Plugin_CompleteParameter_tab(forward)
                 if pumvisible()
                     return a:forward ? "\<c-n>" : "\<c-p>"
@@ -1381,7 +1388,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_clang_complete=0
         endif
         if g:ZF_Plugin_clang_complete==1
-            Plug 'Rip-Rip/clang_complete'
+            ZFPlug 'Rip-Rip/clang_complete'
             let g:clang_auto_select=1
             let g:clang_complete_auto=0
             let g:clang_snippets=1
@@ -1454,10 +1461,10 @@ if g:zf_no_plugin!=1
                 execute 'let ' . a:v . ' = ftList'
             endfunction
             if 1
-                Plug 'rhysd/vim-gfm-syntax'
+                ZFPlug 'rhysd/vim-gfm-syntax'
                 let ZF_Plugin_vim_markdown_cfg = 'g:markdown_fenced_languages'
             else
-                Plug 'plasticboy/vim-markdown'
+                ZFPlug 'plasticboy/vim-markdown'
                 let ZF_Plugin_vim_markdown_cfg = 'g:vim_markdown_fenced_languages'
             endif
             augroup ZF_Plugin_vim_markdown_augroup
@@ -1476,7 +1483,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_markdown_preview=1
         endif
         if g:ZF_Plugin_markdown_preview==1
-            Plug 'iamcco/markdown-preview.vim'
+            ZFPlug 'iamcco/markdown-preview.vim'
             let g:mkdp_auto_start=0
             let g:mkdp_auto_open=0
         endif
@@ -1485,7 +1492,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_markdown_toc=1
         endif
         if g:ZF_Plugin_markdown_toc==1
-            Plug 'mzlogin/vim-markdown-toc'
+            ZFPlug 'mzlogin/vim-markdown-toc'
             command! -nargs=0 TOCAdd :GenTocGFM
             command! -nargs=0 TOCRemove :RemoveToc
             command! -nargs=0 TOCUpdate :UpdateToc
@@ -1495,28 +1502,28 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_ZFVimToc=1
         endif
         if g:ZF_Plugin_ZFVimToc==1
-            Plug 'ZSaberLv0/ZFVimToc'
+            ZFPlug 'ZSaberLv0/ZFVimToc'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_fenced_code_blocks')
             let g:ZF_Plugin_fenced_code_blocks=1
         endif
         if g:ZF_Plugin_fenced_code_blocks==1
-            Plug 'amiorin/vim-fenced-code-blocks'
+            ZFPlug 'amiorin/vim-fenced-code-blocks'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_phpcomplete')
             let g:ZF_Plugin_phpcomplete=1
         endif
         if g:ZF_Plugin_phpcomplete==1
-            Plug 'shawncplus/phpcomplete.vim'
+            ZFPlug 'shawncplus/phpcomplete.vim'
         endif
         " ==================================================
         if !exists('g:ZF_Plugin_php_namespace')
             let g:ZF_Plugin_php_namespace=1
         endif
         if g:ZF_Plugin_php_namespace==1
-            Plug 'arnaud-lb/vim-php-namespace'
+            ZFPlug 'arnaud-lb/vim-php-namespace'
             let g:php_namespace_sort_after_insert = 1
             nnoremap <leader>cphpu :call PhpInsertUse()<cr>
             nnoremap <leader>cphpe :call PhpExpandClass()<cr>
@@ -1526,7 +1533,7 @@ if g:zf_no_plugin!=1
             let g:ZF_Plugin_xmledit=1
         endif
         if g:ZF_Plugin_xmledit==1
-            Plug 'sukima/xmledit'
+            ZFPlug 'sukima/xmledit'
         endif
     endif " additional plugins for language spec
 
@@ -1754,8 +1761,7 @@ if 1 " custom key mapping
     nmap <c-g> p
     xnoremap <c-g> <esc>:call ZF_Setting_VisualPaste()<cr>
     if has('clipboard')
-        " inoremap <c-g> <c-r>*
-        inoremap <expr> <c-g> pumvisible() ? "\<c-e>\<c-r>*" : "\<c-r>*"
+        inoremap <c-g> <c-r>*
         " paste as user typed
         " to ensure the command would exist in command history
         function! ZF_Setting_command_paste()
@@ -1766,8 +1772,7 @@ if 1 " custom key mapping
         snoremap <c-g> <c-o>"_d"*gP
     else
         if g:zf_fakevim!=1
-            " inoremap <c-g> <c-r>"
-            inoremap <expr> <c-g> pumvisible() ? "\<c-e>\<c-r>\"" : "\<c-r>\""
+            inoremap <c-g> <c-r>"
             cnoremap <c-g> <c-r>"
             snoremap <c-g> <c-o>"_dgP
         else
@@ -2341,12 +2346,14 @@ augroup ZF_VimrcPost_augroup
         doautocmd User ZFVimrcPostNormal
         doautocmd User ZFVimrcPostHigh
         doautocmd User ZFVimLowPerf
+        call s:PlugCheck()
     else
         autocmd VimEnter *
                     \ doautocmd User ZFVimrcPostLow|
                     \ doautocmd User ZFVimrcPostNormal|
                     \ doautocmd User ZFVimrcPostHigh|
-                    \ doautocmd User ZFVimLowPerf
+                    \ doautocmd User ZFVimLowPerf|
+                    \ call s:PlugCheck()
     endif
 augroup END
 
