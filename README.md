@@ -3,6 +3,7 @@
 * [Introduction](#introduction)
 * [Install](#install)
     * [Quick Install](#quick-install)
+        * [Windows gVimPortable](#windows-gvimportable)
         * [Install Settings](#install-settings)
     * [Manual Install](#manual-install)
     * [Uninstall](#uninstall)
@@ -71,6 +72,13 @@ curl zsaber.com/vim | sh
 ```
 
 <b>once installed, you may press `z?` to view a quick tutorial for this config</b>
+
+
+### Windows gVimPortable
+
+for lazy ones, here's a packaged portable version of gVim for Windows: [Download](https://pan.baidu.com/s/1nt3NJhJ)
+
+it's not ensured keep update with this repo, but you may use `<leader>vimru` to update
 
 
 ### Install Settings
